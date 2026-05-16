@@ -1,0 +1,20 @@
+{
+  "source_report_random_state": 42,
+  "source_report_balancing": "undersample majority class to minority class size",
+  "dropped_columns": [
+    "CHAVE",
+    "AEROPORTO",
+    "TERMINAL",
+    "ATENDIMENTO DA CIA. AÉREA2",
+    "SATISFAÇÃO GERAL",
+    "MOTIVO",
+    "COMENTÁRIOS ADICIONAIS",
+    "DATA",
+    "INÍCIO COLETA",
+    "FIM COLETA",
+    "PORTÃO",
+    "CIA AÉREA",
+    "VOO",
+    "source_file"
+  ]
+}

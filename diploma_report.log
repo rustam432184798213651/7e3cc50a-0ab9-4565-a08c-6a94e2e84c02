@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.5.8)  16 MAY 2026 16:16
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.5.8)  16 MAY 2026 16:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -571,7 +571,7 @@ Package: titlesec 2025/01/04 v2.17 Sectioning titles
 \titlewidthlast=\dimen267
 \titlewidthfirst=\dimen268
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 29.
+Package hyperref Info: Option `colorlinks' set `true' on input line 30.
 
 Package fontspec Info: 
 (fontspec)             Font family 'TimesNewRoman(1)' created for font 'Times
@@ -595,26 +595,26 @@ Package fontspec Info:
 (./diploma_report.aux)
 \openout1 = `diploma_report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
 
 Package fontspec Info: 
 (fontspec)             Adjusting the maths setup (use [no-math] to avoid
@@ -622,64 +622,64 @@ Package fontspec Info:
 
 \symlegacymaths=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
-(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 36.
-LaTeX Font Info:    Redeclaring math accent \acute on input line 36.
-LaTeX Font Info:    Redeclaring math accent \grave on input line 36.
-LaTeX Font Info:    Redeclaring math accent \ddot on input line 36.
-LaTeX Font Info:    Redeclaring math accent \tilde on input line 36.
-LaTeX Font Info:    Redeclaring math accent \bar on input line 36.
-LaTeX Font Info:    Redeclaring math accent \breve on input line 36.
-LaTeX Font Info:    Redeclaring math accent \check on input line 36.
-LaTeX Font Info:    Redeclaring math accent \hat on input line 36.
-LaTeX Font Info:    Redeclaring math accent \dot on input line 36.
-LaTeX Font Info:    Redeclaring math accent \mathring on input line 36.
-LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 36.
-LaTeX Font Info:    Redeclaring math symbol \Delta on input line 36.
-LaTeX Font Info:    Redeclaring math symbol \Theta on input line 36.
-LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 36.
-LaTeX Font Info:    Redeclaring math symbol \Xi on input line 36.
-LaTeX Font Info:    Redeclaring math symbol \Pi on input line 36.
-LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 36.
-LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 36.
-LaTeX Font Info:    Redeclaring math symbol \Phi on input line 36.
-LaTeX Font Info:    Redeclaring math symbol \Psi on input line 36.
-LaTeX Font Info:    Redeclaring math symbol \Omega on input line 36.
-LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 36.
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 36.
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 37.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 37.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 37.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 37.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 37.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 37.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 37.
+LaTeX Font Info:    Redeclaring math accent \check on input line 37.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 37.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 37.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 37.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 37.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 37.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 37.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 37.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 37.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 37.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 37.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 37.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 37.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 37.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 37.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 37.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 37.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 36.
+(Font)              `operators' in the math version `normal' on input line 37.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> TU/TimesNewRoman(0)/m/n on input line 3
-6.
+7.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 36.
+(Font)              `operators' in the math version `bold' on input line 37.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
 (Font)                  OT1/cmr/bx/n --> TU/TimesNewRoman(0)/m/n on input line 
-36.
+37.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  TU/TimesNewRoman(0)/m/n --> TU/TimesNewRoman(0)/m/n on 
-input line 36.
+input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
 (Font)                  OT1/cmr/m/it --> TU/TimesNewRoman(0)/m/it on input line
- 36.
+ 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
 (Font)                  OT1/cmr/bx/n --> TU/TimesNewRoman(0)/b/n on input line 
-36.
+37.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 36.
+(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> TU/CourierNew(0)/m/n on input line 36.
+(Font)                  OT1/cmtt/m/n --> TU/CourierNew(0)/m/n on input line 37.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
 (Font)                  TU/TimesNewRoman(0)/m/n --> TU/TimesNewRoman(0)/b/n on 
-input line 36.
+input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/cmr/bx/it --> TU/TimesNewRoman(0)/b/it on input lin
-e 36.
+e 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 36.
+(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> TU/CourierNew(0)/b/n on input line 36.
+(Font)                  OT1/cmtt/m/n --> TU/CourierNew(0)/b/n on input line 37.
 
 
 *geometry* driver: auto-detecting
@@ -729,7 +729,7 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 Package pdflscape Info: Auto-detected driver: dvipdfm (xetex) on input line 98.
 
 ))
-Package hyperref Info: Link coloring ON on input line 36.
+Package hyperref Info: Link coloring ON on input line 37.
 
 (./diploma_report.out) (./diploma_report.out)
 \@outlinefile=\write3
@@ -750,27 +750,37 @@ File: файлы_по_отчету/ТЗ.pdf Graphic file (type pdf)
 <use файлы_по_отчету/ТЗ.pdf, page 1>
 File: файлы_по_отчету/ТЗ.pdf Graphic file (type pdf)
 <use файлы_по_отчету/ТЗ.pdf, page 1>
+File: файлы_по_отчету/signature_overlay.png Graphic file (type bmp)
+<файлы_по_отчету/signature_overlay.png>
 File: файлы_по_отчету/ТЗ.pdf Graphic file (type pdf)
 <use файлы_по_отчету/ТЗ.pdf, page 1>
  [1
 
 ]
 File: файлы_по_отчету/ТЗ.pdf Graphic file (type pdf)
+<use файлы_по_отчету/ТЗ.pdf>
+File: файлы_по_отчету/ТЗ.pdf Graphic file (type pdf)
 <use файлы_по_отчету/ТЗ.pdf, page 2>
 File: файлы_по_отчету/ТЗ.pdf Graphic file (type pdf)
 <use файлы_по_отчету/ТЗ.pdf, page 2>
+File: файлы_по_отчету/ТЗ.pdf Graphic file (type pdf)
+<use файлы_по_отчету/ТЗ.pdf, page 2>
+File: файлы_по_отчету/ТЗ.pdf Graphic file (type pdf)
+<use файлы_по_отчету/ТЗ.pdf, page 2>
+File: файлы_по_отчету/signature_overlay.png Graphic file (type bmp)
+<файлы_по_отчету/signature_overlay.png>
 File: файлы_по_отчету/ТЗ.pdf Graphic file (type pdf)
 <use файлы_по_отчету/ТЗ.pdf, page 2>
  [2
 
 ]
-Overfull \hbox (6.35806pt too wide) in paragraph at lines 70--71
+Overfull \hbox (6.35806pt too wide) in paragraph at lines 78--79
 \TU/TimesNewRoman(1)/m/n/14.4 удовлетворенности пассажиров авиаперевозок на осн
 ове данных пассажирских опро-
  []
 
 
-Overfull \hbox (1.34131pt too wide) in paragraph at lines 70--71
+Overfull \hbox (1.34131pt too wide) in paragraph at lines 78--79
 \TU/TimesNewRoman(1)/m/n/14.4 го обучения, способных классифицировать пассажиро
 в на удовлетворенных и неудо-
  []
@@ -778,31 +788,31 @@ Overfull \hbox (1.34131pt too wide) in paragraph at lines 70--71
 [3
 
 ]
-Overfull \hbox (24.51527pt too wide) in paragraph at lines 73--74
+Overfull \hbox (24.51527pt too wide) in paragraph at lines 81--82
 \TU/TimesNewRoman(1)/m/n/14.4 factors associated with the final customer assess
 ment. The study evaluates Logistic Regression,
  []
 
 
-Overfull \hbox (23.62709pt too wide) in paragraph at lines 73--74
+Overfull \hbox (23.62709pt too wide) in paragraph at lines 81--82
 \TU/TimesNewRoman(1)/m/n/14.4 KNN, Decision Tree, Random Forest, XGBoost, and a
  neural network. A unified preprocessing
  []
 
 
-Overfull \hbox (19.30269pt too wide) in paragraph at lines 73--74
+Overfull \hbox (19.30269pt too wide) in paragraph at lines 81--82
 \TU/TimesNewRoman(1)/m/n/14.4 pipeline is used for all models, including missin
 g value handling, categorical feature encoding,
  []
 
 
-Overfull \hbox (17.97386pt too wide) in paragraph at lines 73--74
+Overfull \hbox (17.97386pt too wide) in paragraph at lines 81--82
 \TU/TimesNewRoman(1)/m/n/14.4 accuracy, precision, and recall, but also by ROC-
 AUC, threshold analysis, confusion matrices,
  []
 
 
-Overfull \hbox (0.13095pt too wide) in paragraph at lines 73--74
+Overfull \hbox (0.13095pt too wide) in paragraph at lines 81--82
 \TU/TimesNewRoman(1)/m/n/14.4 data. The practical value of the study is that it
 s results can support decision-making systems
  []
@@ -831,25 +841,25 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 ]
-Overfull \hbox (26.30937pt too wide) in paragraph at lines 90--91
+Overfull \hbox (26.30937pt too wide) in paragraph at lines 98--99
 \TU/TimesNewRoman(1)/m/n/14.4 и регулирования искусственного интеллекта в авиац
 ии. В документе \TU/TimesNewRoman(1)/m/it/14.4 Artificial Intelligence
  []
 
 [8]
-Overfull \hbox (19.10464pt too wide) in paragraph at lines 107--108
+Overfull \hbox (19.10464pt too wide) in paragraph at lines 115--116
 []\TU/TimesNewRoman(1)/m/n/14.4 обучить и настроить несколько моделей машинного
  обучения: Logistic Regression,
  []
 
 
-Overfull \hbox (0.20001pt too wide) in paragraph at lines 109--110
+Overfull \hbox (0.20001pt too wide) in paragraph at lines 117--118
 []\TU/TimesNewRoman(1)/m/n/14.4 провести расширенный анализ моделей: learning c
 urves, threshold analysis, error
  []
 
 
-Overfull \hbox (18.2491pt too wide) in paragraph at lines 114--115
+Overfull \hbox (18.2491pt too wide) in paragraph at lines 122--123
 \TU/TimesNewRoman(1)/m/n/14.4 боте используется расширенная схема оценки качест
 ва, включающая кросс-валидацию,
  []
@@ -869,20 +879,20 @@ Overfull \hbox (18.2491pt too wide) in paragraph at lines 114--115
 ]
 Глава 5.
 
-Overfull \hbox (4.53944pt too wide) in paragraph at lines 242--243
+Overfull \hbox (4.53944pt too wide) in paragraph at lines 250--251
 \TU/TimesNewRoman(1)/m/n/14.4 пользуемую для дополнительных анализов: fairness 
 analysis, error analysis и robustness
  []
 
 
-Overfull \hbox (3.36479pt too wide) in paragraph at lines 244--245
+Overfull \hbox (3.36479pt too wide) in paragraph at lines 252--253
 []\TU/TimesNewRoman(1)/m/n/14.4 Для обработки признаков использовался \TU/Couri
 erNew(1)/m/n/14.4 sklearn Pipeline\TU/TimesNewRoman(1)/m/n/14.4 . Числовые при-
 
  []
 
 
-Overfull \hbox (32.71355pt too wide) in paragraph at lines 244--245
+Overfull \hbox (32.71355pt too wide) in paragraph at lines 252--253
 \TU/TimesNewRoman(1)/m/n/14.4 нейронной сети дополнительно выполнялось приведен
 ие матрицы признаков к \TU/CourierNew(1)/m/n/14.4 float32\TU/TimesNewRoman(1)/m
 /n/14.4 .
@@ -891,21 +901,21 @@ Overfull \hbox (32.71355pt too wide) in paragraph at lines 244--245
 [19
 
 ]
-Overfull \hbox (54.04118pt too wide) in paragraph at lines 252--253
+Overfull \hbox (54.04118pt too wide) in paragraph at lines 260--261
 []\TU/TimesNewRoman(1)/m/n/14.4 Для Logistic Regression подбирался параметр \TU
 /CourierNew(1)/m/n/14.4 C\TU/TimesNewRoman(1)/m/n/14.4 , управляющий силой L2-р
 егуляризации.
  []
 
 
-Overfull \hbox (129.8656pt too wide) in paragraph at lines 271--272
+Overfull \hbox (129.8656pt too wide) in paragraph at lines 279--280
 \TU/TimesNewRoman(1)/m/n/14.4 ний. Лучшее дерево использовало глубину 16, \TU/C
 ourierNew(1)/m/n/14.4 min_samples_leaf=20 \TU/TimesNewRoman(1)/m/n/14.4 и \TU/C
 ourierNew(1)/m/n/14.4 min_samples_split=300\TU/TimesNewRoman(1)/m/n/14.4 ,
  []
 
 [20] [21]
-Overfull \hbox (2.87253pt too wide) in paragraph at lines 363--364
+Overfull \hbox (2.87253pt too wide) in paragraph at lines 371--372
 []\TU/TimesNewRoman(1)/m/n/14.4 Для Neural Network подбирались размеры двух скр
 ытых слоев, dropout, learning
  []
@@ -931,7 +941,7 @@ File: neural_network_images/neural_network_learning_curve.png Graphic file (typ
 e bmp)
 <neural_network_images/neural_network_learning_curve.png>
  [25]
-Overfull \hbox (26.32684pt too wide) in paragraph at lines 487--488
+Overfull \hbox (26.32684pt too wide) in paragraph at lines 495--496
 \TU/TimesNewRoman(1)/m/n/14.4 объема обучающих данных и насколько велик разрыв 
 между train- и validation-качеством.
  []
@@ -997,7 +1007,7 @@ File: neural_network_images/neural_network_threshold_analysis.png Graphic file
 (type bmp)
 <neural_network_images/neural_network_threshold_analysis.png>
  [36]
-Overfull \hbox (0.80103pt too wide) in paragraph at lines 664--665
+Overfull \hbox (0.80103pt too wide) in paragraph at lines 672--673
 \TU/TimesNewRoman(1)/m/n/14.4 бенно важно при практическом использовании модели
  для раннего выявления неудо-
  []
@@ -1023,27 +1033,27 @@ File: neural_network_images/neural_network_robustness_f1_drop.png Graphic file
 (type bmp)
 <neural_network_images/neural_network_robustness_f1_drop.png>
  [40]
-Overfull \hbox (2.1476pt too wide) in paragraph at lines 719--720
+Overfull \hbox (2.1476pt too wide) in paragraph at lines 727--728
 \TU/TimesNewRoman(1)/m/n/14.4 более устойчивым в данном эксперименте оказался R
 andom Forest: падение F1-macro
  []
 
 
-Overfull \hbox (16.3853pt too wide) in paragraph at lines 744--745
+Overfull \hbox (16.3853pt too wide) in paragraph at lines 752--753
 []\TU/TimesNewRoman(1)/m/n/14.4 В файлах \TU/CourierNew(1)/m/n/14.4 models_perf
 ormance.csv \TU/TimesNewRoman(1)/m/n/14.4 сохранены параметры и качество кросс-
 
  []
 
 
-Overfull \hbox (83.83191pt too wide) in paragraph at lines 744--745
+Overfull \hbox (83.83191pt too wide) in paragraph at lines 752--753
 \TU/TimesNewRoman(1)/m/n/14.4 валидации, а тайминги лучших конфигураций берутся
  из файлов \TU/CourierNew(1)/m/n/14.4 *_cv_search_results.csv\TU/TimesNewRoman(
 1)/m/n/14.4 ,
  []
 
 
-Overfull \hbox (78.01476pt too wide) in paragraph at lines 744--745
+Overfull \hbox (78.01476pt too wide) in paragraph at lines 752--753
 \TU/TimesNewRoman(1)/m/n/14.4 где \TU/CourierNew(1)/m/n/14.4 mean_fit_time \TU/
 TimesNewRoman(1)/m/n/14.4 отражает среднее время обучения на одном CV-fold, а \
 TU/CourierNew(1)/m/n/14.4 mean_score_time
@@ -1073,7 +1083,7 @@ File: neural_network_images/neural_network_permutation_importance.png Graphic f
 ile (type bmp)
 <neural_network_images/neural_network_permutation_importance.png>
  [46] [47]
-Overfull \hbox (2.98264pt too wide) in paragraph at lines 825--826
+Overfull \hbox (2.98264pt too wide) in paragraph at lines 833--834
 []\TU/TimesNewRoman(1)/m/n/14.4 Во всех сильных моделях среди наиболее важных п
 ризнаков встречаются оцен-
  []
@@ -1091,7 +1101,7 @@ File: research_docx_images/word/media/image1.png Graphic file (type bmp)
 File: research_docx_images/word/media/image2.png Graphic file (type bmp)
 <research_docx_images/word/media/image2.png>
  [51] [52]
-Overfull \hbox (22.50546pt too wide) in paragraph at lines 865--866
+Overfull \hbox (22.50546pt too wide) in paragraph at lines 873--874
 \TU/TimesNewRoman(1)/m/n/14.4 бок, fairness analysis, robustness check, построе
 ние кривых обучения и оценка permutation
  []
@@ -1113,10 +1123,10 @@ Package rerunfilecheck Info: File `diploma_report.out' has not changed.
 (rerunfilecheck)             Checksum: 25A4E337F5FF957CD44D1B47A24A8ADA;7709.
  ) 
 Here is how much of TeX's memory you used:
- 17504 strings out of 468168
- 352582 string characters out of 5432816
+ 17513 strings out of 468168
+ 352947 string characters out of 5432816
  830897 words of memory out of 5000000
- 45899 multiletter control sequences out of 15000+600000
+ 45907 multiletter control sequences out of 15000+600000
  634833 words of font info for 118 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  73i,17n,93p,1289b,618s stack positions out of 10000i,1000n,20000p,200000b,200000s
