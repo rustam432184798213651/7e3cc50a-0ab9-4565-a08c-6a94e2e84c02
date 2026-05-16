@@ -1,0 +1,19 @@
+{
+  "n_rows": 57514,
+  "n_features": 144,
+  "n_numeric_features": 121,
+  "n_categorical_features": 23,
+  "n_applicability_indicators": 59,
+  "target_counts": {
+    "0": 28757,
+    "1": 28757
+  },
+  "target_shares": {
+    "0": 0.5,
+    "1": 0.5
+  },
+  "total_missing_values": 3323216,
+  "features_with_missing_values": 76,
+  "max_missing_rate": 0.9990437110964286,
+  "feature_summary_csv": "xgboost_results_second_approach/dataset_feature_summary.csv"
+}

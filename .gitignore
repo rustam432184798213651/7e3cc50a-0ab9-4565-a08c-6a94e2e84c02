@@ -1,0 +1,40 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+vkr_env/
+
+# IDE metadata
+.idea/
+
+# Local caches
+.cache/
+.matplotlib_cache/
+.pytest_cache/
+.argos_runtime/
+
+# Data files
+*.csv
+!*_results/*.csv
+!*_results_*/*.csv
+*.xlsx
+*.xls
+*.zip
+*.tar.gz
+*.argosmodel
+*.bin
+
+# Large local datasets and raw downloads
+datasets/
+balanced_passenger_survey_dataset/
+passenger_survey_downloads/
+passenger_survey_column_groups/
+airline_authenticity_audit/
+
+# macOS
+.DS_Store

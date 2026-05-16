@@ -1,0 +1,2 @@
+﻿model,roc_auc,score_source,n_holdout_objects
+KNN,0.8777463386986638,predict_proba,5752

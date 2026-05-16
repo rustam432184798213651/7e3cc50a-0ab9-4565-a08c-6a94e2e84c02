@@ -1,0 +1,20 @@
+# Основные библиотеки для работы с данными
+numpy>=1.23
+pandas>=1.5
+scikit-learn>=1.2
+openpyxl>=3.1
+
+# Визуализация
+matplotlib>=3.7
+seaborn>=0.12
+
+# Градиентный бустинг
+xgboost>=1.7
+
+# Нейронная сеть
+tensorflow>=2.13
+skorch>=0.15
+
+# Утилиты
+joblib>=1.2
+kagglehub[pandas-datasets]>=1.0

@@ -1,0 +1,2 @@
+﻿params,mean_cv_f1,cv_splits,search_type,mean_cv_accuracy,std_cv_accuracy,mean_cv_balanced_accuracy,std_cv_balanced_accuracy,mean_cv_f1_macro,std_cv_f1_macro,mean_cv_f1_weighted,std_cv_f1_weighted,mean_cv_precision_macro,std_cv_precision_macro,mean_cv_recall_macro,std_cv_recall_macro
+{'model__C': 0.1},0.8103747849726919,5,grid,0.8109231343765988,0.004686418758053837,0.810922900422419,0.00468542196654265,0.8103747849726919,0.004642969591903763,0.8103748254797731,0.0046431535088905275,0.8145776244831117,0.005155794834349403,0.810922900422419,0.00468542196654265
