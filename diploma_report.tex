@@ -44,8 +44,8 @@
 
 Раджабов Рустам Русланович\\[1.0cm]
 
-\textbf{Сравнительное исследование моделей машинного обучения\\
-для прогнозирования удовлетворенности пассажиров авиаперевозок}\\[1.0cm]
+\textbf{Разработка и сравнение моделей классификации удовлетворённости клиентов\\
+на основе методов машинного обучения}\\[1.0cm]
 
 Выпускная квалификационная работа студента образовательной программы бакалавриата\\
 «Прикладная математика»\\
@@ -53,8 +53,9 @@
 \end{center}
 
 \begin{flushright}
-Студент: Р. Р. Раджабов\\[0.5cm]
-Руководитель ВКР: Ю. В. Зонтов
+Студент: Раджабов Рустам Русланович\\[0.8cm]
+\rule{4cm}{0.4pt}\\[0.5cm]
+Руководитель ВКР: Зонтов Юрий Владимирович
 \end{flushright}
 
 \vfill
@@ -75,9 +76,13 @@ This bachelor thesis studies the problem of airline passenger satisfaction predi
 \clearpage
 
 
-\chapter*{Актуальность, новизна и предметная область}
-\addcontentsline{toc}{chapter}{Актуальность, новизна и предметная область}
-\section*{Актуальность работы}
+\chapter{Введение}
+\section{Предметная область}
+Предметной областью работы является анализ пассажирского опыта в авиационной отрасли. Авиаперевозка включает не только сам перелет, но и последовательность процессов до и после него: покупку билета, прибытие в аэропорт, регистрацию, прохождение контроля безопасности, ожидание посадки, пользование сервисами терминала, получение багажа и выход из аэропорта. Каждый из этих этапов может влиять на итоговую удовлетворенность пассажира.
+
+Объектом исследования являются данные пассажирских опросов, содержащие оценки отдельных элементов сервиса, сведения о типе перелета, характеристиках пассажира и процессе прохождения аэропортовых процедур. Предметом исследования являются методы машинного обучения и способы их оценки при решении задачи бинарной классификации удовлетворенности пассажиров. В данной работе пассажиры разделяются на два класса: удовлетворенные и неудовлетворенные. Такое разделение позволяет перейти от описательного анализа анкет к прикладной задаче прогнозирования клиентского опыта.
+
+\section{Актуальность проблемы}
 В последние годы транспортная отрасль активно переходит к использованию методов анализа данных и систем искусственного интеллекта для повышения качества обслуживания клиентов. Авиакомпании, аэропорты и регуляторы рассматривают данные как один из ключевых ресурсов для повышения операционной эффективности, персонализации сервиса и улучшения пассажирского опыта.
 
 Данный тезис подтверждается отраслевыми документами и материалами международных организаций. Международная организация гражданской авиации ICAO рассматривает искусственный интеллект и big data analytics как значимые инструменты для развития безопасной, эффективной и устойчивой авиации. IATA указывает, что данные становятся основой трансформации авиационной отрасли, включая повышение операционной эффективности, устойчивости и качества клиентского опыта. ACI World связывает цифровую трансформацию аэропортов с использованием real-time data, smart analytics, пассажирских опросов, benchmarking, passenger segmentation и journey mapping для улучшения качества обслуживания пассажиров.
@@ -88,15 +93,27 @@ This bachelor thesis studies the problem of airline passenger satisfaction predi
 
 Таким образом, задача сравнительного исследования моделей машинного обучения для прогнозирования удовлетворенности пассажиров представляет как практический, так и исследовательский интерес.
 
-\section*{Научная новизна и практическая значимость}
+\section{Цель работы}
+Целью работы является построение и сравнительное исследование моделей машинного обучения для прогнозирования удовлетворенности пассажиров авиаперевозок на основе данных пассажирских опросов. Модели должны по набору признаков пассажира и оценок отдельных элементов сервиса определять, относится ли пассажир к классу удовлетворенных или неудовлетворенных.
+
+Дополнительной целью является не только выбор модели с наилучшим качеством классификации, но и анализ ее применимости в практическом сценарии. Поэтому модели сравниваются не только по стандартным метрикам качества, но и по устойчивости, интерпретируемости, поведению на разных группах пассажиров, чувствительности к порогу классификации и вычислительной эффективности.
+
+\section{Постановка задачи}
+Для достижения цели работы необходимо решить следующие задачи:
+\begin{enumerate}
+    \item исследовать исходные источники данных об удовлетворенности пассажиров и выбрать проверяемый набор данных;
+    \item сформировать сбалансированный датасет для бинарной классификации удовлетворенности пассажиров;
+    \item реализовать единый pipeline предобработки данных, включающий обработку пропусков, кодирование категориальных признаков и масштабирование числовых признаков;
+    \item обучить и настроить несколько моделей машинного обучения: Logistic Regression, KNN, Decision Tree, Random Forest, XGBoost и Neural Network;
+    \item сравнить модели по метрикам accuracy, balanced accuracy, F1-macro, precision, recall и ROC-AUC;
+    \item провести расширенный анализ моделей: learning curves, threshold analysis, error analysis, robustness check, fairness analysis и permutation importance;
+    \item определить наиболее подходящую модель и показать возможные сценарии практического применения полученных результатов.
+\end{enumerate}
+
+\section{Научная новизна и практическая значимость}
 Научная новизна работы заключается не в разработке нового алгоритма машинного обучения, а в комплексном сравнительном исследовании нескольких классов моделей применительно к задаче прогнозирования удовлетворенности пассажиров. В отличие от простого сравнения моделей только по accuracy или F1-score, в работе используется расширенная схема оценки качества, включающая кросс-валидацию, анализ доверительных интервалов метрик, ROC-AUC, анализ порога классификации, матрицу ошибок, анализ ошибок, кривые обучения, перестановочную важность признаков, анализ устойчивости модели и анализ групповой справедливости.
 
-К элементам новизны относятся: использование единого preprocessing pipeline для шести моделей; подбор и последующее уточнение диапазонов гиперпараметров на основе первичных запусков; анализ поведения моделей на различных группах пассажиров; оценка интерпретируемости через permutation importance; разработка прикладной функции поиска минимально затратного набора изменений признаков, переводящего клиента в класс удовлетворенных пассажиров с точки зрения обученной модели.
-
 Практическая значимость работы состоит в том, что результаты исследования могут использоваться как основа для построения системы поддержки принятия решений в авиакомпании или аэропорту. Такая система может помогать выявлять неудовлетворенных пассажиров, определять наиболее значимые факторы сервиса и выбирать направления улучшения обслуживания с учетом ожидаемого влияния на удовлетворенность клиентов.
-
-\section*{Предметная область}
-Предметной областью работы является анализ пассажирского опыта в авиационной отрасли. Объектом исследования являются данные пассажирских опросов, содержащие оценки отдельных элементов сервиса, сведения о типе перелета, характеристиках пассажира и процессе прохождения аэропортовых процедур. Предметом исследования являются методы машинного обучения и способы их оценки при решении задачи бинарной классификации удовлетворенности пассажиров.
 
 
 \chapter{Используемые модели машинного обучения}
@@ -225,6 +242,147 @@ L=-\frac{1}{n}\sum_{i=1}^{n}\sum_{c}y_{ic}\log \hat{p}_{ic}.
 Все модели обучались в единой экспериментальной схеме. Сначала данные очищались от признаков, которые могли приводить к утечке целевой переменной, например исходная колонка общей удовлетворенности и текстовые комментарии. Затем данные делились на часть для кросс-валидации и отложенную выборку, используемую для дополнительных анализов: fairness analysis, error analysis и robustness check.
 
 Для обработки признаков использовался \texttt{sklearn Pipeline}. Числовые признаки заполнялись медианой и стандартизировались. Категориальные признаки заполнялись наиболее частым значением и кодировались через one-hot encoding. Для нейронной сети дополнительно выполнялось приведение матрицы признаков к \texttt{float32}. Подбор гиперпараметров выполнялся по F1-macro с 5-fold stratified cross-validation. Для небольших сеток использовался GridSearchCV, а для более дорогих моделей --- RandomizedSearchCV.
+
+\section{Подбор гиперпараметров}
+Так как итоговый датасет был сбалансирован по целевому классу, дополнительное взвешивание классов в большинстве моделей не использовалось. Это важно: параметр \texttt{class\_weight} нужен прежде всего для компенсации дисбаланса, а после undersampling положительного класса оба класса представлены одинаково. Поэтому для Logistic Regression, Decision Tree и Random Forest базовым решением было использовать \texttt{class\_weight=None}, чтобы не смещать границу классификации искусственно.
+
+Основной метрикой подбора была F1-macro. Эта метрика усредняет качество по классам и поэтому подходит для задачи, где одинаково важны ошибки на удовлетворенных и неудовлетворенных пассажирах. Для небольших пространств параметров применялся полный перебор GridSearchCV, а для Random Forest, XGBoost и Neural Network --- RandomizedSearchCV, поскольку полный перебор всех комбинаций был бы вычислительно слишком дорогим.
+
+\subsection{Logistic Regression}
+Для Logistic Regression подбирался параметр \texttt{C}, управляющий силой L2-регуляризации. Малые значения \texttt{C} соответствуют более сильной регуляризации, большие --- более гибкой модели. Диапазон был выбран вокруг умеренной регуляризации, поскольку после one-hot encoding число признаков возрастает, и слишком слабая регуляризация может привести к переобучению на редких категориях. Лучшее значение \texttt{C=0.1} подтверждает, что линейной модели полезно ограничение сложности.
+
+\scriptsize
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.40\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}}
+\caption{Сетка гиперпараметров Logistic Regression}\label{tab:lr_hyperparameters}\\
+\toprule
+Гиперпараметр & Диапазон поиска & Выбрано \\
+\midrule
+\endfirsthead
+\toprule
+Гиперпараметр & Диапазон поиска & Выбрано \\
+\midrule
+\endhead
+\path{C} & \path{[0.01, 0.03, 0.1, 0.3, 1, 3, 10]} & 0.1 \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\subsection{Decision Tree}
+Для Decision Tree подбирались ограничения сложности дерева: \texttt{max\_depth}, \texttt{min\_samples\_leaf} и \texttt{min\_samples\_split}. Одиночное дерево легко переобучается, особенно на данных с большим числом one-hot признаков и повторяющимися профилями пассажиров. Поэтому диапазоны включали глубокие, но ограниченные деревья, а также достаточно крупные минимальные размеры листьев и разбиений. Лучшее дерево использовало глубину 16, \texttt{min\_samples\_leaf=20} и \texttt{min\_samples\_split=300}, что снижает чувствительность к шумным локальным группам.
+
+\scriptsize
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.40\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}}
+\caption{Сетка гиперпараметров Decision Tree}\label{tab:dt_hyperparameters}\\
+\toprule
+Гиперпараметр & Диапазон поиска & Выбрано \\
+\midrule
+\endfirsthead
+\toprule
+Гиперпараметр & Диапазон поиска & Выбрано \\
+\midrule
+\endhead
+\path{max_depth} & \path{[14, 16, 18, 20, 24]} & 16 \\
+\path{min_samples_leaf} & \path{[10, 20, 30, 50]} & 20 \\
+\path{min_samples_split} & \path{[100, 200, 300, 500]} & 300 \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\subsection{Random Forest}
+Для Random Forest подбирались число деревьев, глубина деревьев, минимальные размеры разбиений и листьев, а также доля признаков, доступных при split. Число деревьев проверялось в диапазоне, достаточном для стабилизации ансамбля, но без чрезмерного роста времени обучения. Параметр \texttt{max\_features} особенно важен после one-hot encoding: ограничение числа признаков на каждом split повышает разнообразие деревьев. Лучшая конфигурация использовала 500 деревьев, глубину 14, \texttt{min\_samples\_leaf=5} и \texttt{max\_features=0.3}, что соответствует регуляризованному ансамблю.
+
+\scriptsize
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.40\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}}
+\caption{Сетка гиперпараметров Random Forest}\label{tab:rf_hyperparameters}\\
+\toprule
+Гиперпараметр & Диапазон поиска & Выбрано \\
+\midrule
+\endfirsthead
+\toprule
+Гиперпараметр & Диапазон поиска & Выбрано \\
+\midrule
+\endhead
+\path{n_estimators} & \path{[500, 700, 900]} & 500 \\
+\path{max_depth} & \path{[6, 8, 10, 12, 14, 16]} & 14 \\
+\path{min_samples_split} & \path{[10, 20, 50, 100]} & 20 \\
+\path{min_samples_leaf} & \path{[5, 10, 15, 20, 30]} & 5 \\
+\path{max_features} & \path{[0.2, 0.3, 0.4, "sqrt"]} & 0.3 \\
+\path{bootstrap} & \path{[True]} & True \\
+\path{class_weight} & \path{[None]} & None \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\subsection{KNN}
+Для KNN ключевым параметром было число соседей. Диапазон был сдвинут к более крупным значениям, потому что при 57514 наблюдениях слишком малые \texttt{k} чувствительны к шуму, редким категориям и повторяющимся профилям. После первичного поиска был выполнен уточняющий поиск с большими значениями \texttt{k}; оптимальным стало \texttt{n\_neighbors=41}, уже не на границе диапазона. Это показывает, что дальнейшее увеличение числа соседей не улучшает качество. Также сравнивались равномерное и дистанционное голосование, евклидова и манхэттенская метрики; лучшим оказалось обычное голосование с евклидовой метрикой.
+
+\scriptsize
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.40\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}}
+\caption{Сетка гиперпараметров KNN}\label{tab:knn_hyperparameters}\\
+\toprule
+Гиперпараметр & Диапазон поиска & Выбрано \\
+\midrule
+\endfirsthead
+\toprule
+Гиперпараметр & Диапазон поиска & Выбрано \\
+\midrule
+\endhead
+\path{n_neighbors} & \path{[31, 41, 51, 61, 81, 101]} & 41 \\
+\path{weights} & \path{["uniform", "distance"]} & uniform \\
+\path{metric} & \path{["euclidean", "manhattan"]} & euclidean \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\subsection{XGBoost}
+Для XGBoost совместно подбирались число деревьев и learning rate, глубина деревьев, доли строк и признаков, а также L1- и L2-регуляризация. В первичных запусках некоторые лучшие значения находились на границах сетки, поэтому диапазоны были уточнены: увеличено число деревьев, добавлены параметры регуляризации и расширена проверка доли признаков. Лучшая конфигурация использовала 800 деревьев, неглубокие деревья глубины 5, \texttt{learning\_rate=0.05} и \texttt{colsample\_bytree=0.4}. Это означает, что модели полезно видеть все строки, но строить отдельные деревья на ограниченной доле признаков, что снижает переобучение на one-hot признаках.
+
+\scriptsize
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.40\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}}
+\caption{Сетка гиперпараметров XGBoost}\label{tab:xgb_hyperparameters}\\
+\toprule
+Гиперпараметр & Диапазон поиска & Выбрано \\
+\midrule
+\endfirsthead
+\toprule
+Гиперпараметр & Диапазон поиска & Выбрано \\
+\midrule
+\endhead
+\path{n_estimators} & \path{[600, 800, 1000]} & 800 \\
+\path{max_depth} & \path{[5, 7, 9]} & 5 \\
+\path{learning_rate} & \path{[0.015, 0.03, 0.05]} & 0.05 \\
+\path{subsample} & \path{[0.9, 1.0]} & 1.0 \\
+\path{colsample_bytree} & \path{[0.4, 0.6, 0.8]} & 0.4 \\
+\path{reg_lambda} & \path{[0.3, 1, 3]} & 1 \\
+\path{reg_alpha} & \path{[0, 0.1, 0.3]} & 0.1 \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\subsection{Neural Network}
+Для Neural Network подбирались размеры двух скрытых слоев, dropout, learning rate, batch size и weight decay. Первичный поиск показал, что более крупная сеть не дает прироста качества, поэтому уточняющий диапазон был смещен к компактным архитектурам. Лучшая конфигурация использовала 64 нейрона в первом скрытом слое и 16 во втором, а также достаточно сильную регуляризацию: \texttt{dropout1=0.40}, \texttt{dropout2=0.10} и \texttt{weight\_decay=0.001}. Это согласуется с природой табличных данных после one-hot encoding: сеть обладает достаточной гибкостью, но без регуляризации быстро начинает подстраиваться под шум.
+
+\scriptsize
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.40\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}}
+\caption{Сетка гиперпараметров Neural Network}\label{tab:nn_hyperparameters}\\
+\toprule
+Гиперпараметр & Диапазон поиска & Выбрано \\
+\midrule
+\endfirsthead
+\toprule
+Гиперпараметр & Диапазон поиска & Выбрано \\
+\midrule
+\endhead
+\path{hidden1} & \path{[32, 64, 96]} & 64 \\
+\path{hidden2} & \path{[16, 32, 64]} & 16 \\
+\path{dropout1} & \path{[0.25, 0.30, 0.35, 0.40]} & 0.40 \\
+\path{dropout2} & \path{[0.00, 0.05, 0.10]} & 0.10 \\
+\path{lr} & \path{[0.0001, 0.0002, 0.0003]} & 0.0003 \\
+\path{batch_size} & \path{[1024, 2048, 4096]} & 1024 \\
+\path{weight_decay} & \path{[0.0005, 0.001, 0.002]} & 0.001 \\
+\bottomrule
+\end{longtable}
+\normalsize
 
 \section{Полученные метрики}
 
@@ -709,15 +867,11 @@ Neural Network & 5 & thermal\_comfort & 0.0062 & 0.0007 \\
 \begin{thebibliography}{99}
 \bibitem{hastie} Hastie T., Tibshirani R., Friedman J. The Elements of Statistical Learning. Springer, 2009.
 \bibitem{bishop} Bishop C.M. Pattern Recognition and Machine Learning. Springer, 2006.
-\bibitem{murphy} Murphy K.P. Machine Learning: A Probabilistic Perspective. MIT Press, 2012.
 \bibitem{breiman-rf} Breiman L. Random Forests // Machine Learning. 2001. Vol. 45. P. 5--32.
 \bibitem{cart} Breiman L., Friedman J.H., Olshen R.A., Stone C.J. Classification and Regression Trees. Wadsworth, 1984.
 \bibitem{knn} Cover T., Hart P. Nearest Neighbor Pattern Classification // IEEE Transactions on Information Theory. 1967. Vol. 13, No. 1. P. 21--27.
 \bibitem{xgboost} Chen T., Guestrin C. XGBoost: A Scalable Tree Boosting System // Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining. 2016. P. 785--794.
 \bibitem{sklearn} Scikit-learn developers. Scikit-learn User Guide. URL: \url{https://scikit-learn.org/stable/user_guide.html} (дата обращения: 16.05.2026).
-\bibitem{xgbdocs} XGBoost developers. XGBoost Documentation. URL: \url{https://xgboost.readthedocs.io/} (дата обращения: 16.05.2026).
-\bibitem{pytorch} PyTorch Foundation. PyTorch Documentation. URL: \url{https://pytorch.org/docs/stable/index.html} (дата обращения: 16.05.2026).
-\bibitem{skorch} Skorch developers. Skorch Documentation. URL: \url{https://skorch.readthedocs.io/} (дата обращения: 16.05.2026).
 \bibitem{kaggle-old} Teejmahal20. Airline Passenger Satisfaction Dataset. URL: \url{https://www.kaggle.com/datasets/teejmahal20/airline-passenger-satisfaction} (дата обращения: 16.05.2026).
 \bibitem{brazil-data} Ministério dos Transportes do Brasil. Pesquisa de satisfação do passageiro em aeroportos. URL: \url{https://dados.transportes.gov.br/dataset/pesquisa-de-satisfacao-do-passageiro-em-aeroportos} (дата обращения: 16.05.2026).
 \bibitem{icao-ai} ICAO. Global aviation leaders chart path for artificial intelligence integration. URL: \url{https://www.icao.int/news/global-aviation-leaders-chart-path-artificial-intelligence-integration-antalya-conference} (дата обращения: 16.05.2026).
@@ -728,7 +882,6 @@ Neural Network & 5 & thermal\_comfort & 0.0062 & 0.0007 \\
 \bibitem{easa-concept} EASA. Artificial Intelligence Concept Paper Issue 2. URL: \url{https://www.easa.europa.eu/nl/newsroom-and-events/news/easa-publishes-artificial-intelligence-concept-paper-issue-2-guidance} (дата обращения: 16.05.2026).
 \bibitem{nist-rmf} NIST. AI Risk Management Framework. URL: \url{https://www.nist.gov/itl/ai-risk-management-framework} (дата обращения: 16.05.2026).
 \bibitem{nist-characteristics} NIST. AI RMF: Characteristics of Trustworthy AI. URL: \url{https://airc.nist.gov/airmf-resources/airmf/3-sec-characteristics/} (дата обращения: 16.05.2026).
-\bibitem{github} Rustam432184798213651. Machine learning models study. URL: \url{https://github.com/rustam432184798213651/machine_learning_models_study} (дата обращения: 16.05.2026).
 \end{thebibliography}
 
 \appendix
