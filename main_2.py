@@ -186,8 +186,8 @@ USELESS_COLUMNS = [
     'AIRLINE SERVICE'
 ]
 
-RESULTS_DIR = model_name.lower().replace(' ', '_') + "_results_second_approach"
-IMAGES_DIR = model_name.lower().replace(' ', '_') + "_images_second_approach"
+RESULTS_DIR = model_name.lower().replace(' ', '_') + "_results"
+IMAGES_DIR = model_name.lower().replace(' ', '_') + "_images"
 
 F1_SCORER = make_scorer(f1_score, average="macro")
 
@@ -1497,7 +1497,7 @@ def run_simple_cv_search(model_name, X_train, y_train, preprocessor):
     cv_results_df = pd.DataFrame(search.cv_results_)
 
     cv_results_df.to_csv(
-        os.path.join(RESULTS_DIR, f"{make_safe_name(model_name)}_cv_search_results.csv"),
+        os.path.join(RESULTS_DIR, f"{make_safe_name(model_name)}_cv_search_dresults.csv"),
         index=False,
         encoding="utf-8-sig",
     )

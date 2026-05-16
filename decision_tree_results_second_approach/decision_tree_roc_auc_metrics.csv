@@ -1,2 +1,0 @@
-﻿model,roc_auc,score_source,n_holdout_objects
-Decision Tree,0.8789859147982149,predict_proba,5752

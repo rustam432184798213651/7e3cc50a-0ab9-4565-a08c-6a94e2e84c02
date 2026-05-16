@@ -1,0 +1,742 @@
+
+% Compile with XeLaTeX.
+\documentclass[14pt,a4paper]{extreport}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{russian}
+\setotherlanguage{english}
+\setmainfont{Times New Roman}
+\setmonofont{Courier New}
+\newfontfamily\cyrillicfonttt{Courier New}
+\usepackage[left=2cm,right=1cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{indentfirst}
+\setlength{\parindent}{1.25cm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\setlength{\tabcolsep}{3pt}
+\usepackage{amsmath,amssymb}
+\usepackage{pdfpages}
+\usepackage{hyperref}
+\usepackage{xurl}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue}
+\renewcommand{\bibname}{Список используемых источников}
+\titleformat{\chapter}{\normalfont\bfseries\fontsize{18}{22}\selectfont}{\thechapter.}{1em}{}
+\titleformat{\section}{\normalfont\bfseries\fontsize{16}{20}\selectfont}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\bfseries\fontsize{14}{18}\selectfont}{\thesubsection}{1em}{}
+\captionsetup{font=small,labelfont=bf}
+\newcommand{\todo}[1]{\textbf{[Уточнить: #1]}}
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ АВТОНОМНОЕ ОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ\\
+ВЫСШЕГО ОБРАЗОВАНИЯ\\
+\textbf{«НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ УНИВЕРСИТЕТ\\ «ВЫСШАЯ ШКОЛА ЭКОНОМИКИ»}\\[0.5cm]
+Московский институт электроники и математики\\[2.2cm]
+
+Раджабов Рустам Русланович\\[1.0cm]
+
+\textbf{Сравнительное исследование моделей машинного обучения\\
+для прогнозирования удовлетворенности пассажиров авиаперевозок}\\[1.0cm]
+
+Выпускная квалификационная работа студента образовательной программы бакалавриата\\
+«Прикладная математика»\\
+по направлению подготовки 01.03.04 «Прикладная математика»\\[2.0cm]
+\end{center}
+
+\begin{flushright}
+Студент: Р. Р. Раджабов\\[0.5cm]
+Руководитель ВКР: Ю. В. Зонтов
+\end{flushright}
+
+\vfill
+\begin{center}
+Москва 2026 г.
+\end{center}
+\end{titlepage}
+
+\includepdf[pages=-]{файлы_по_отчету/ТЗ.pdf}
+
+\chapter*{Аннотация}
+В выпускной квалификационной работе исследуется задача прогнозирования удовлетворенности пассажиров авиаперевозок на основе данных пассажирских опросов. Целью работы является построение и сравнительная оценка моделей машинного обучения, способных классифицировать пассажиров на удовлетворенных и неудовлетворенных, а также выявлять факторы, связанные с итоговой оценкой клиента. В работе рассмотрены Logistic Regression, KNN, Decision Tree, Random Forest, XGBoost и нейронная сеть. Для всех моделей использован единый pipeline обработки данных, включающий обработку пропусков, кодирование категориальных признаков и масштабирование числовых признаков. Качество моделей оценивалось не только по F1-macro, accuracy, precision и recall, но и через ROC-AUC, анализ порога классификации, матрицу ошибок, доверительные интервалы, кривые обучения, анализ устойчивости, анализ групповой справедливости и перестановочную важность признаков. Наилучшее качество среди рассмотренных моделей показал XGBoost, что согласуется с практикой применения градиентного бустинга на табличных данных. Практическая значимость работы состоит в возможности использовать полученные результаты как основу для системы поддержки принятия решений по улучшению пассажирского опыта.
+
+\chapter*{Abstract}
+This bachelor thesis studies the problem of airline passenger satisfaction prediction using passenger survey data. The goal of the study is to build and compare machine learning models that classify passengers as satisfied or dissatisfied and identify service factors associated with the final customer assessment. The study evaluates Logistic Regression, KNN, Decision Tree, Random Forest, XGBoost, and a neural network. A unified preprocessing pipeline is used for all models, including missing value handling, categorical feature encoding, and numerical feature scaling. Model performance is assessed not only by F1-macro, accuracy, precision, and recall, but also by ROC-AUC, threshold analysis, confusion matrices, confidence intervals, learning curves, robustness analysis, group fairness analysis, and permutation feature importance. XGBoost achieved the best overall performance, which is consistent with the strong empirical performance of gradient boosting methods on tabular data. The practical value of the study is that its results can support decision-making systems aimed at improving airline passenger experience.
+
+\tableofcontents
+\clearpage
+
+
+\chapter*{Актуальность, новизна и предметная область}
+\addcontentsline{toc}{chapter}{Актуальность, новизна и предметная область}
+\section*{Актуальность работы}
+В последние годы транспортная отрасль активно переходит к использованию методов анализа данных и систем искусственного интеллекта для повышения качества обслуживания клиентов. Авиакомпании, аэропорты и регуляторы рассматривают данные как один из ключевых ресурсов для повышения операционной эффективности, персонализации сервиса и улучшения пассажирского опыта.
+
+Данный тезис подтверждается отраслевыми документами и материалами международных организаций. Международная организация гражданской авиации ICAO рассматривает искусственный интеллект и big data analytics как значимые инструменты для развития безопасной, эффективной и устойчивой авиации. IATA указывает, что данные становятся основой трансформации авиационной отрасли, включая повышение операционной эффективности, устойчивости и качества клиентского опыта. ACI World связывает цифровую трансформацию аэропортов с использованием real-time data, smart analytics, пассажирских опросов, benchmarking, passenger segmentation и journey mapping для улучшения качества обслуживания пассажиров.
+
+При этом применение современных систем машинного обучения в авиационной отрасли продолжает развиваться не только с точки зрения качества предсказаний, но и с точки зрения надежности, интерпретируемости, устойчивости и безопасности таких систем. Например, EASA в документе \textit{Artificial Intelligence Roadmap 2.0} рассматривает вопросы доверия к AI-системам, explainability, safety, data governance и регулирования искусственного интеллекта в авиации. В документе \textit{Artificial Intelligence Concept Paper Issue 2} отдельно выделяются learning assurance, AI explainability и ethics-based assessment как важные элементы безопасного и надежного применения ML-систем в авиационной среде.
+
+Дополнительную актуальность работе придает тот факт, что современные ML-системы должны оцениваться не только по итоговой метрике качества классификации, но и по ряду дополнительных характеристик: устойчивости к шуму и искажению данных, вычислительной эффективности, интерпретируемости результатов, справедливости модели по отношению к различным группам пользователей, а также стабильности качества при изменении порога классификации. Необходимость такой расширенной оценки подтверждается современными подходами к управлению рисками искусственного интеллекта. Например, NIST AI Risk Management Framework рассматривает оценку AI-систем через характеристики trustworthy AI, а не только через точность предсказаний. Среди таких характеристик NIST выделяет validity and reliability, robustness, transparency, explainability and interpretability, fairness и bias management.
+
+Таким образом, задача сравнительного исследования моделей машинного обучения для прогнозирования удовлетворенности пассажиров представляет как практический, так и исследовательский интерес.
+
+\section*{Научная новизна и практическая значимость}
+Научная новизна работы заключается не в разработке нового алгоритма машинного обучения, а в комплексном сравнительном исследовании нескольких классов моделей применительно к задаче прогнозирования удовлетворенности пассажиров. В отличие от простого сравнения моделей только по accuracy или F1-score, в работе используется расширенная схема оценки качества, включающая кросс-валидацию, анализ доверительных интервалов метрик, ROC-AUC, анализ порога классификации, матрицу ошибок, анализ ошибок, кривые обучения, перестановочную важность признаков, анализ устойчивости модели и анализ групповой справедливости.
+
+К элементам новизны относятся: использование единого preprocessing pipeline для шести моделей; подбор и последующее уточнение диапазонов гиперпараметров на основе первичных запусков; анализ поведения моделей на различных группах пассажиров; оценка интерпретируемости через permutation importance; разработка прикладной функции поиска минимально затратного набора изменений признаков, переводящего клиента в класс удовлетворенных пассажиров с точки зрения обученной модели.
+
+Практическая значимость работы состоит в том, что результаты исследования могут использоваться как основа для построения системы поддержки принятия решений в авиакомпании или аэропорту. Такая система может помогать выявлять неудовлетворенных пассажиров, определять наиболее значимые факторы сервиса и выбирать направления улучшения обслуживания с учетом ожидаемого влияния на удовлетворенность клиентов.
+
+\section*{Предметная область}
+Предметной областью работы является анализ пассажирского опыта в авиационной отрасли. Объектом исследования являются данные пассажирских опросов, содержащие оценки отдельных элементов сервиса, сведения о типе перелета, характеристиках пассажира и процессе прохождения аэропортовых процедур. Предметом исследования являются методы машинного обучения и способы их оценки при решении задачи бинарной классификации удовлетворенности пассажиров.
+
+
+\chapter{Используемые модели машинного обучения}
+\section{Logistic Regression}
+Логистическая регрессия является линейной моделью бинарной классификации. Пусть объект описывается вектором признаков $x \in \mathbb{R}^{d}$, а целевая переменная принимает значения $y \in \{0,1\}$. Модель оценивает вероятность положительного класса через логистическую функцию:
+\begin{equation}
+P(y=1 \mid x)=\sigma(w^{T}x+b)=\frac{1}{1+\exp(-(w^{T}x+b))}.
+\end{equation}
+Решение принимается сравнением вероятности с порогом $t$:
+\begin{equation}
+\hat{y}=\mathbb{I}\{P(y=1\mid x)\geq t\}.
+\end{equation}
+Параметры модели обучаются минимизацией логистической функции потерь:
+\begin{equation}
+L(w,b)=-\frac{1}{n}\sum_{i=1}^{n}\left[y_i\log p_i+(1-y_i)\log(1-p_i)\right]+\lambda\|w\|_2^2.
+\end{equation}
+В данной работе логистическая регрессия используется как интерпретируемая линейная базовая модель. Она позволяет оценить, насколько задача прогнозирования удовлетворенности решается линейной комбинацией признаков после стандартизации числовых переменных и one-hot encoding категориальных признаков.
+
+\section{KNN}
+Метод $k$ ближайших соседей относится к непараметрическим методам классификации. Для нового объекта $x$ находятся $k$ объектов обучающей выборки, наиболее близких к нему по выбранной метрике расстояния. При евклидовой метрике расстояние между объектами $x$ и $z$ равно
+\begin{equation}
+\rho_2(x,z)=\sqrt{\sum_{j=1}^{d}(x_j-z_j)^2}.
+\end{equation}
+При манхэттенской метрике:
+\begin{equation}
+\rho_1(x,z)=\sum_{j=1}^{d}|x_j-z_j|.
+\end{equation}
+Классификация может выполняться обычным голосованием:
+\begin{equation}
+\hat{y}=\arg\max_{c}\sum_{i\in N_k(x)}\mathbb{I}\{y_i=c\},
+\end{equation}
+или голосованием с весами, зависящими от расстояния:
+\begin{equation}
+\hat{y}=\arg\max_{c}\sum_{i\in N_k(x)}\frac{\mathbb{I}\{y_i=c\}}{\rho(x,x_i)+\varepsilon}.
+\end{equation}
+KNN чувствителен к масштабу признаков, поэтому числовые признаки стандартизируются. После one-hot encoding пространство признаков становится высокоразмерным, что может ухудшать качество расстояний; поэтому в работе отдельно подбиралось число соседей и тип метрики.
+
+\section{Decision Tree}
+Дерево решений строит иерархическое разбиение пространства признаков. В каждом внутреннем узле выбирается признак и порог, максимизирующие уменьшение неоднородности. Для классификации часто используется критерий Джини:
+\begin{equation}
+G(S)=1-\sum_{c=1}^{C}p_c^2,
+\end{equation}
+где $p_c$ --- доля объектов класса $c$ в узле $S$. Качество разбиения оценивается уменьшением impurity:
+\begin{equation}
+\Delta G=G(S)-\frac{|S_L|}{|S|}G(S_L)-\frac{|S_R|}{|S|}G(S_R).
+\end{equation}
+Дерево решений хорошо интерпретируется, но склонно к переобучению. Поэтому в работе подбирались параметры ограничения сложности: максимальная глубина дерева, минимальное число объектов в листе и минимальное число объектов для разбиения узла.
+
+\section{Random Forest}
+Random Forest представляет собой ансамбль деревьев решений, обученных на bootstrap-выборках. Для каждого дерева $h_b(x)$ строится случайная обучающая подвыборка, а при каждом split рассматривается случайное подмножество признаков. Итоговый прогноз определяется голосованием деревьев:
+\begin{equation}
+\hat{y}=\arg\max_{c}\sum_{b=1}^{B}\mathbb{I}\{h_b(x)=c\}.
+\end{equation}
+Вероятность класса может оцениваться как средняя доля голосов:
+\begin{equation}
+\hat{P}(y=c\mid x)=\frac{1}{B}\sum_{b=1}^{B}\mathbb{I}\{h_b(x)=c\}.
+\end{equation}
+Метод снижает дисперсию одиночного дерева и обычно устойчивее к шуму. В работе Random Forest используется как сильная нелинейная ансамблевая модель для табличных данных.
+
+\section{XGBoost}
+XGBoost относится к градиентному бустингу над деревьями решений. Модель строит аддитивную композицию:
+\begin{equation}
+\hat{y}_i^{(t)}=\sum_{k=1}^{t} f_k(x_i), \quad f_k \in \mathcal{F},
+\end{equation}
+где $\mathcal{F}$ --- множество регрессионных деревьев. На каждом шаге добавляется дерево, минимизирующее регуляризованный функционал:
+\begin{equation}
+\mathcal{L}^{(t)}=\sum_{i=1}^{n}l(y_i,\hat{y}_i^{(t-1)}+f_t(x_i))+\Omega(f_t),
+\end{equation}
+\begin{equation}
+\Omega(f)=\gamma T+\frac{1}{2}\lambda\sum_{j=1}^{T}w_j^2+\alpha\sum_{j=1}^{T}|w_j|.
+\end{equation}
+Здесь $T$ --- число листьев дерева, $w_j$ --- вес листа, $\lambda$ и $\alpha$ --- коэффициенты L2- и L1-регуляризации. XGBoost хорошо подходит для табличных данных, умеет моделировать нелинейные зависимости и взаимодействия признаков, но требует аккуратного подбора числа деревьев, глубины, learning rate и регуляризации.
+
+\section{Neural Networks}
+В работе используется полносвязная нейронная сеть с двумя скрытыми слоями. Для входного вектора $x$ вычисления можно записать как
+\begin{align}
+h_1 &= \mathrm{ReLU}(W_1x+b_1),\\
+h_2 &= \mathrm{ReLU}(W_2h_1+b_2),\\
+z &= W_3h_2+b_3,\\
+P(y=c\mid x)&=\frac{\exp(z_c)}{\sum_{k}\exp(z_k)}.
+\end{align}
+Обучение выполняется минимизацией cross-entropy:
+\begin{equation}
+L=-\frac{1}{n}\sum_{i=1}^{n}\sum_{c}y_{ic}\log \hat{p}_{ic}.
+\end{equation}
+Для снижения переобучения используются dropout и weight decay. Dropout случайно зануляет часть активаций во время обучения:
+\begin{equation}
+\tilde{h}=m\odot h, \quad m_j\sim \mathrm{Bernoulli}(1-p),
+\end{equation}
+а weight decay добавляет L2-штраф к весам. Нейронная сеть используется как гибкая нелинейная модель, способная учитывать взаимодействия между признаками после preprocessing.
+
+
+\chapter{Датасет}
+\section{Первичный датасет Kaggle и причина отказа от него}
+Изначально рассматривался датасет \textit{Airline Passenger Satisfaction}, опубликованный на Kaggle. Его описание, популярность на платформе и использование в ряде научных работ создавали впечатление, что он может быть основан на реальном опросе пассажиров. Однако в ходе первичного обучения моделей были получены подозрительно высокие значения метрик: для Random Forest и XGBoost F1-macro превышал 0.96, а для Decision Tree и KNN также находился около 0.94--0.95. Такие результаты выглядели нетипично высокими для задачи анализа клиентской удовлетворенности, где ответы пассажиров обычно содержат шум, субъективность и неоднородность.
+
+Дополнительное исследование источника не позволило надежно установить первичный источник данных. Датасет также встречался у другого автора Kaggle, где утверждалось, что данные были получены в рамках бизнес-соревнования. При этом подтверждающих первичных материалов, описывающих процедуру сбора, структуру опроса и владельца данных, найти не удалось. Поэтому было принято решение отказаться от данного датасета и перейти к более проверяемому источнику данных.
+
+\section{Данные пассажирских опросов Министерства транспорта Бразилии}
+В качестве нового источника была выбрана коллекция опросов Министерства транспорта Бразилии, опубликованная на государственном портале открытых данных. В отличие от первичного Kaggle-датасета, источник содержит набор файлов опросов за разные периоды, а также методологические материалы, позволяющие понять структуру анкет и причины возникновения пропусков.
+
+Первичные файлы были опубликованы на португальском языке, поэтому для дальнейшей работы выполнялся перевод названий признаков и категориальных значений. Анализ показал, что данные имеют выраженный дисбаланс классов: оценок удовлетворенности 4 и 5 существенно больше, чем оценок 1--3. При объединении опросов за 2021--2025 годы было получено 415391 наблюдение. Распределение оценок удовлетворенности было следующим: оценка 1 --- 1311 наблюдений, оценка 2 --- 3177, оценка 3 --- 24269, оценка 4 --- 174036, оценка 5 --- 211596.
+
+Для постановки бинарной задачи оценки 1--3 были отнесены к классу неудовлетворенных пассажиров, а оценки 4--5 --- к классу удовлетворенных. Такой выбор отражает практическую задачу выявления пассажиров, опыт которых нельзя считать положительным. После этого все 28757 неудовлетворенных пассажиров были сохранены, а из класса удовлетворенных была случайно выбрана такая же по размеру подвыборка. Итоговый сбалансированный датасет содержит 57514 наблюдений.
+
+\section{Наблюдения по структуре данных}
+Итоговый датасет содержит 144 признака без целевой переменной, из них 121 числовой и 23 категориальных. Также сформировано 59 индикаторов применимости вопросов. Данные содержат значительное число пропусков, однако часть из них является структурной: некоторые вопросы по методологии опроса задавались только определенным группам пассажиров или в определенных процессах обслуживания. Поэтому такие пропуски нельзя обрабатывать так же, как случайно отсутствующие ответы.
+
+Дополнительно анализировались дублирующиеся профили. Было выявлено, что большая часть дублей относится к процессу Disembarkation. Это объясняется природой данных: для данного процесса активно только ограниченное число колонок, а многие ответы являются низкокардинальными категориальными или рейтинговыми значениями. Поэтому совпадение полных профилей в такой группе не является достаточным основанием считать данные аномальными.
+
+Категориальные признаки имеют умеренную cardinality: наиболее разнообразные признаки включают цель поездки, транспорт до аэропорта, канал покупки билета, месяц и способ высадки. Это делает one-hot encoding вычислительно приемлемым и не приводит к чрезмерному росту размерности.
+
+
+\chapter{Доработка датасета}
+Для формирования итогового датасета использовался скрипт \path{build_balanced_passenger_survey_dataset.py}. Его задача состояла в объединении разнородных файлов опросов, приведении их к единой структуре, обработке методологических пропусков и формировании сбалансированной выборки для бинарной классификации.
+
+На верхнем уровне работа скрипта включает несколько этапов. Сначала файлы опросов группируются по структуре колонок, поскольку разные годы и кварталы могли использовать разные форматы хранения. Для каждой группы применяется соответствующий парсер. Затем выполняется нормализация названий колонок и значений, перевод с португальского языка, удаление технических и нерелевантных колонок, а также унификация признаков.
+
+Особое внимание уделяется пропускам. Если значение отсутствует потому, что вопрос не был применим к пассажиру согласно методологии опроса, то для числового признака создается дополнительный индикатор вида \path{feature_is_applicable}. При неприменимости вопроса базовое числовое значение заполняется нулем, а индикатор принимает значение 0. Такой ноль не смешивается с реальной оценкой, поскольку рейтинговые признаки имеют шкалу 1--5, а временные признаки положительны. Если же вопрос применим, но ответ отсутствует, значение остается пропуском и затем обрабатывается внутри ML pipeline через \texttt{SimpleImputer}. Категориальные неприменимые значения сохраняются как отдельная категория, которая затем кодируется через one-hot encoding.
+
+После обработки целевая переменная формируется на основе общей оценки удовлетворенности. Оценки 1--3 интерпретируются как класс неудовлетворенных пассажиров, оценки 4--5 --- как класс удовлетворенных пассажиров. Для устранения дисбаланса классов используется случайное сокращение положительного класса: все объекты отрицательного класса сохраняются, а из положительного класса выбирается такое же число наблюдений. В результате получается сбалансированный датасет из 57514 объектов.
+
+
+\chapter{Обучение моделей}
+\section{Общая схема обучения}
+Все модели обучались в единой экспериментальной схеме. Сначала данные очищались от признаков, которые могли приводить к утечке целевой переменной, например исходная колонка общей удовлетворенности и текстовые комментарии. Затем данные делились на часть для кросс-валидации и отложенную выборку, используемую для дополнительных анализов: fairness analysis, error analysis и robustness check.
+
+Для обработки признаков использовался \texttt{sklearn Pipeline}. Числовые признаки заполнялись медианой и стандартизировались. Категориальные признаки заполнялись наиболее частым значением и кодировались через one-hot encoding. Для нейронной сети дополнительно выполнялось приведение матрицы признаков к \texttt{float32}. Подбор гиперпараметров выполнялся по F1-macro с 5-fold stratified cross-validation. Для небольших сеток использовался GridSearchCV, а для более дорогих моделей --- RandomizedSearchCV.
+
+\section{Полученные метрики}
+
+\scriptsize
+\begin{longtable}{llllllll}
+\caption{Метрики на отложенной выборке}\label{tab:holdout_metrics}\\
+\toprule
+Модель & Accuracy & Balanced acc. & F1-macro & Precision weighted & Recall weighted & Sensitivity & Specificity \\
+\midrule
+\endfirsthead
+\toprule
+Модель & Accuracy & Balanced acc. & F1-macro & Precision weighted & Recall weighted & Sensitivity & Specificity \\
+\midrule
+\endhead
+Logistic Regression & 0.811 & 0.811 & 0.810 & 0.816 & 0.811 & 0.874 & 0.747 \\
+Decision Tree & 0.804 & 0.804 & 0.804 & 0.807 & 0.804 & 0.853 & 0.756 \\
+Random Forest & 0.810 & 0.810 & 0.810 & 0.814 & 0.810 & 0.864 & 0.756 \\
+KNN & 0.801 & 0.801 & 0.800 & 0.803 & 0.801 & 0.843 & 0.758 \\
+XGBoost & 0.822 & 0.822 & 0.821 & 0.825 & 0.822 & 0.874 & 0.769 \\
+Neural Network & 0.814 & 0.814 & 0.814 & 0.817 & 0.814 & 0.859 & 0.769 \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\scriptsize
+\begin{longtable}{lllllll}
+\caption{Кросс-валидационные метрики лучших конфигураций}\label{tab:cv_metrics}\\
+\toprule
+Модель & CV F1-macro & Std F1 & CV accuracy & CV precision macro & CV recall macro & Тип поиска \\
+\midrule
+\endfirsthead
+\toprule
+Модель & CV F1-macro & Std F1 & CV accuracy & CV precision macro & CV recall macro & Тип поиска \\
+\midrule
+\endhead
+Logistic Regression & 0.810 & 0.005 & 0.811 & 0.815 & 0.811 & grid \\
+Decision Tree & 0.802 & 0.004 & 0.802 & 0.804 & 0.802 & grid \\
+Random Forest & 0.810 & 0.003 & 0.810 & 0.813 & 0.810 & randomized \\
+KNN & 0.800 & 0.005 & 0.800 & 0.802 & 0.800 & grid \\
+XGBoost & 0.819 & 0.004 & 0.819 & 0.822 & 0.819 & randomized \\
+Neural Network & 0.815 & 0.004 & 0.815 & 0.817 & 0.815 & randomized \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+По результатам сравнения наилучшее качество показал XGBoost. Это ожидаемо для табличных данных со смешанными числовыми и категориальными признаками: градиентный бустинг эффективно моделирует нелинейные зависимости и взаимодействия признаков. Нейронная сеть заняла второе место, однако не превзошла XGBoost, что также согласуется с практикой: для табличных данных бустинговые модели часто оказываются сильнее MLP без специализированной архитектуры. Random Forest и Logistic Regression дали близкие результаты, но логистическая регрессия остается более простой и интерпретируемой моделью. Decision Tree и KNN показали более низкое качество, что связано соответственно с ограниченной устойчивостью одиночного дерева и проблемами расстояний в высокоразмерном one-hot пространстве.
+
+\section{Кривые обучения}
+
+\scriptsize
+\begin{longtable}{llllll}
+\caption{Сводка по кривым обучения}\label{tab:learning_curves_summary}\\
+\toprule
+Модель & Первый train size & Valid F1 в начале & Последний train size & Valid F1 в конце & Train F1 в конце \\
+\midrule
+\endfirsthead
+\toprule
+Модель & Первый train size & Valid F1 в начале & Последний train size & Valid F1 в конце & Train F1 в конце \\
+\midrule
+\endhead
+Logistic Regression & 4140 & 0.805 & 41409 & 0.810 & 0.812 \\
+Decision Tree & 4140 & 0.780 & 41409 & 0.802 & 0.808 \\
+Random Forest & 4140 & 0.799 & 41409 & 0.810 & 0.834 \\
+KNN & 4140 & 0.783 & 41409 & 0.800 & 0.806 \\
+XGBoost & 4140 & 0.803 & 41409 & 0.818 & 0.842 \\
+Neural Network & 4140 & 0.798 & 41409 & 0.814 & 0.827 \\
+\bottomrule
+\end{longtable}
+\normalsize
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{logistic_regression_images/logistic_regression_learning_curve.png}
+\caption{Кривая обучения: Logistic Regression}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{decision_tree_images/decision_tree_learning_curve.png}
+\caption{Кривая обучения: Decision Tree}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{random_forest_images/random_forest_learning_curve.png}
+\caption{Кривая обучения: Random Forest}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{knn_images_second_approach/knn_learning_curve.png}
+\caption{Кривая обучения: KNN}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{xgboost_images/xgboost_learning_curve.png}
+\caption{Кривая обучения: XGBoost}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{neural_network_images/neural_network_learning_curve.png}
+\caption{Кривая обучения: Neural Network}
+\end{figure}
+
+Кривые обучения позволяют оценить, выигрывает ли модель от увеличения объема обучающих данных и насколько велик разрыв между train- и validation-качеством. Для XGBoost и Random Forest заметен более высокий train F1, что указывает на большую емкость ансамблей. При этом validation F1 у XGBoost продолжает расти при увеличении обучающей выборки, поэтому модель выигрывает от дополнительного объема данных. Для логистической регрессии разрыв между train и validation меньше, что характерно для регуляризованной линейной модели. Decision Tree и KNN имеют более низкий итоговый validation F1: одиночному дереву не хватает устойчивости ансамбля, а KNN хуже использует высокоразмерное пространство после one-hot encoding.
+
+\section{Анализ справедливости модели}
+
+\scriptsize
+\begin{longtable}{lllll}
+\caption{Наибольшие разрывы качества между группами}\label{tab:fairness_gaps}\\
+\toprule
+Модель & Атрибут & F1 gap & Error rate gap & Recall positive gap \\
+\midrule
+\endfirsthead
+\toprule
+Модель & Атрибут & F1 gap & Error rate gap & Recall positive gap \\
+\midrule
+\endhead
+Logistic Regression & trip\_purpose & 0.141 & 0.142 & 0.103 \\
+Logistic Regression & age\_group & 0.094 & 0.089 & 0.125 \\
+Logistic Regression & process & 0.072 & 0.067 & 0.024 \\
+Decision Tree & trip\_purpose & 0.129 & 0.130 & 0.114 \\
+Decision Tree & age\_group & 0.085 & 0.083 & 0.085 \\
+Decision Tree & process & 0.064 & 0.060 & 0.037 \\
+Random Forest & trip\_purpose & 0.148 & 0.147 & 0.138 \\
+Random Forest & age\_group & 0.091 & 0.089 & 0.089 \\
+Random Forest & process & 0.080 & 0.075 & 0.043 \\
+KNN & age\_group & 0.085 & 0.085 & 0.101 \\
+KNN & trip\_purpose & 0.083 & 0.079 & 0.089 \\
+KNN & process & 0.066 & 0.061 & 0.064 \\
+XGBoost & trip\_purpose & 0.153 & 0.153 & 0.172 \\
+XGBoost & age\_group & 0.094 & 0.090 & 0.092 \\
+XGBoost & process & 0.085 & 0.081 & 0.025 \\
+Neural Network & trip\_purpose & 0.138 & 0.140 & 0.079 \\
+Neural Network & age\_group & 0.092 & 0.089 & 0.121 \\
+Neural Network & process & 0.073 & 0.071 & 0.007 \\
+\bottomrule
+\end{longtable}
+\normalsize
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{logistic_regression_images/logistic_regression_fairness_f1_gaps.png}
+\caption{Fairness gaps по F1-macro: Logistic Regression}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{decision_tree_images/decision_tree_fairness_f1_gaps.png}
+\caption{Fairness gaps по F1-macro: Decision Tree}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{random_forest_images/random_forest_fairness_f1_gaps.png}
+\caption{Fairness gaps по F1-macro: Random Forest}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{knn_images_second_approach/knn_fairness_f1_gaps.png}
+\caption{Fairness gaps по F1-macro: KNN}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{xgboost_images/xgboost_fairness_f1_gaps.png}
+\caption{Fairness gaps по F1-macro: XGBoost}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{neural_network_images/neural_network_fairness_f1_gaps.png}
+\caption{Fairness gaps по F1-macro: Neural Network}
+\end{figure}
+
+Наиболее заметные различия качества наблюдаются по цели поездки, возрастным группам и типу процесса обслуживания. Это может быть связано с тем, что пассажиры разных групп проходят разные этапы аэропортового сервиса и имеют разные ожидания от перелета. Например, бизнес-пассажиры и туристы могут по-разному реагировать на ожидание, навигацию и комфорт терминала. При практическом внедрении модели такие различия требуют дополнительного мониторинга: итоговая модель не должна оцениваться только по среднему F1, поскольку одинаковое среднее качество может скрывать заметные провалы на отдельных группах пассажиров.
+
+\section{Анализ ошибок модели}
+
+\scriptsize
+\begin{longtable}{lllll}
+\caption{Матрицы ошибок в числовом виде}\label{tab:confusion_matrices}\\
+\toprule
+Модель & TN & FP & FN & TP \\
+\midrule
+\endfirsthead
+\toprule
+Модель & TN & FP & FN & TP \\
+\midrule
+\endhead
+Logistic Regression & 2148 & 728 & 362 & 2514 \\
+Decision Tree & 2174 & 702 & 424 & 2452 \\
+Random Forest & 2175 & 701 & 391 & 2485 \\
+KNN & 2180 & 696 & 451 & 2425 \\
+XGBoost & 2213 & 663 & 362 & 2514 \\
+Neural Network & 2213 & 663 & 405 & 2471 \\
+\bottomrule
+\end{longtable}
+\normalsize
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{logistic_regression_images/logistic_regression_confusion_matrix.png}
+\caption{Матрица ошибок: Logistic Regression}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{decision_tree_images/decision_tree_confusion_matrix.png}
+\caption{Матрица ошибок: Decision Tree}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{random_forest_images/random_forest_confusion_matrix.png}
+\caption{Матрица ошибок: Random Forest}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{knn_images_second_approach/knn_confusion_matrix.png}
+\caption{Матрица ошибок: KNN}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{xgboost_images/xgboost_confusion_matrix.png}
+\caption{Матрица ошибок: XGBoost}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{neural_network_images/neural_network_confusion_matrix.png}
+\caption{Матрица ошибок: Neural Network}
+\end{figure}
+
+Матрица ошибок показывает баланс между false positive и false negative. В данной задаче оба типа ошибок важны: false negative означает, что неудовлетворенный пассажир не был выявлен, а false positive означает, что ресурсы улучшения сервиса могут быть направлены на пассажира, который фактически удовлетворен. XGBoost имеет наименьшее суммарное число ошибок среди рассмотренных моделей, что согласуется с его лучшим F1-macro. Logistic Regression и Random Forest дают близкое число ошибок, но распределяют их немного по-разному. KNN чаще ошибается на положительном классе, что может быть следствием сложности выбора устойчивых соседей в пространстве смешанных признаков.
+
+\section{Анализ порога классификации}
+
+\scriptsize
+\begin{longtable}{lllllll}
+\caption{Лучшие пороги классификации по F1-macro}\label{tab:thresholds}\\
+\toprule
+Модель & Порог & F1-macro & Accuracy & Sensitivity & Specificity & Pred. positive rate \\
+\midrule
+\endfirsthead
+\toprule
+Модель & Порог & F1-macro & Accuracy & Sensitivity & Specificity & Pred. positive rate \\
+\midrule
+\endhead
+Logistic Regression & 0.55 & 0.813 & 0.813 & 0.845 & 0.781 & 0.532 \\
+Decision Tree & 0.50 & 0.804 & 0.804 & 0.853 & 0.756 & 0.548 \\
+Random Forest & 0.50 & 0.810 & 0.810 & 0.864 & 0.756 & 0.554 \\
+KNN & 0.55 & 0.801 & 0.801 & 0.816 & 0.787 & 0.515 \\
+XGBoost & 0.50 & 0.821 & 0.822 & 0.874 & 0.769 & 0.552 \\
+Neural Network & 0.50 & 0.814 & 0.814 & 0.859 & 0.769 & 0.545 \\
+\bottomrule
+\end{longtable}
+\normalsize
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{logistic_regression_images/logistic_regression_threshold_analysis.png}
+\caption{Анализ порога классификации: Logistic Regression}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{decision_tree_images/decision_tree_threshold_analysis.png}
+\caption{Анализ порога классификации: Decision Tree}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{random_forest_images/random_forest_threshold_analysis.png}
+\caption{Анализ порога классификации: Random Forest}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{knn_images_second_approach/knn_threshold_analysis.png}
+\caption{Анализ порога классификации: KNN}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{xgboost_images/xgboost_threshold_analysis.png}
+\caption{Анализ порога классификации: XGBoost}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{neural_network_images/neural_network_threshold_analysis.png}
+\caption{Анализ порога классификации: Neural Network}
+\end{figure}
+
+Анализ порога классификации показывает, что стандартный порог 0.5 не всегда является оптимальным. Для Logistic Regression и KNN лучший F1-macro достигается при пороге 0.55, то есть этим моделям полезно немного строже относиться к положительному классу. Для Decision Tree, Random Forest, XGBoost и Neural Network оптимальным в проведенном эксперименте остался порог 0.5. Изменение порога позволяет управлять компромиссом между sensitivity и specificity, что особенно важно при практическом использовании модели для раннего выявления неудовлетворенных клиентов. Если компании важнее не пропустить недовольного пассажира, порог можно снижать, принимая рост false positive как плату за более высокий recall проблемных случаев.
+
+\section{Устойчивость к шуму}
+
+\scriptsize
+\begin{longtable}{llllll}
+\caption{Сводка robustness check}\label{tab:robustness}\\
+\toprule
+Модель & Baseline F1 & Худший тест & Уровень & F1 при искажении & Падение F1 \\
+\midrule
+\endfirsthead
+\toprule
+Модель & Baseline F1 & Худший тест & Уровень & F1 при искажении & Падение F1 \\
+\midrule
+\endhead
+Logistic Regression & 0.810 & missing\_values & 0.05 & 0.795 & 0.015 \\
+Decision Tree & 0.804 & missing\_values & 0.05 & 0.796 & 0.008 \\
+Random Forest & 0.810 & missing\_values & 0.05 & 0.808 & 0.002 \\
+KNN & 0.800 & missing\_values & 0.05 & 0.796 & 0.004 \\
+XGBoost & 0.821 & numeric\_noise & 0.10 & 0.753 & 0.068 \\
+Neural Network & 0.814 & missing\_values & 0.05 & 0.798 & 0.016 \\
+\bottomrule
+\end{longtable}
+\normalsize
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{logistic_regression_images/logistic_regression_robustness_f1_drop.png}
+\caption{Падение F1-macro при искажениях: Logistic Regression}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{decision_tree_images/decision_tree_robustness_f1_drop.png}
+\caption{Падение F1-macro при искажениях: Decision Tree}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{random_forest_images/random_forest_robustness_f1_drop.png}
+\caption{Падение F1-macro при искажениях: Random Forest}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{knn_images_second_approach/knn_robustness_f1_drop.png}
+\caption{Падение F1-macro при искажениях: KNN}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{xgboost_images/xgboost_robustness_f1_drop.png}
+\caption{Падение F1-macro при искажениях: XGBoost}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{neural_network_images/neural_network_robustness_f1_drop.png}
+\caption{Падение F1-macro при искажениях: Neural Network}
+\end{figure}
+
+Проверка устойчивости показывает, насколько качество модели сохраняется при небольших числовых шумах или искажениях категориальных признаков. Наиболее устойчивым в данном эксперименте оказался Random Forest: падение F1-macro в худшем тесте было минимальным. Это ожидаемо для bagging-ансамбля, поскольку усреднение деревьев снижает чувствительность к отдельным искаженным признакам. XGBoost показал лучшее базовое качество, но оказался чувствительнее к числовому шуму, что может быть связано с использованием последовательного бустинга, где деревья уточняют ошибки предыдущих шагов. Более устойчивые модели предпочтительнее для производственного применения, поскольку реальные данные часто содержат ошибки ввода, пропуски и распределительные сдвиги.
+
+\section{Производительность}
+
+\scriptsize
+\begin{longtable}{lllllll}
+\caption{Сравнение времени обучения и скоринга лучших конфигураций}\label{tab:performance}\\
+\toprule
+Модель & Тип поиска & CV splits & Mean fit, c & Mean score, c & Score на объект, мс & Mean CV F1 \\
+\midrule
+\endfirsthead
+\toprule
+Модель & Тип поиска & CV splits & Mean fit, c & Mean score, c & Score на объект, мс & Mean CV F1 \\
+\midrule
+\endhead
+Logistic Regression & grid & 5 & 1.419 & 0.061 & 0.0059 & 0.810 \\
+Decision Tree & grid & 5 & 0.810 & 0.059 & 0.0057 & 0.802 \\
+Random Forest & randomized & 5 & 11.482 & 0.312 & 0.0302 & 0.810 \\
+KNN & grid & 5 & 0.441 & 1.027 & 0.0991 & 0.800 \\
+XGBoost & randomized & 5 & 2.039 & 0.122 & 0.0118 & 0.819 \\
+Neural Network & randomized & 5 & 46.768 & 0.241 & 0.0232 & 0.815 \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+В файлах \texttt{models\_performance.csv} сохранены параметры и качество кросс-валидации, а тайминги лучших конфигураций берутся из файлов \texttt{*\_cv\_search\_results.csv}, где \texttt{mean\_fit\_time} отражает среднее время обучения на одном CV-fold, а \texttt{mean\_score\_time} --- среднее время получения предсказаний и расчета scorer на validation-fold. Значение ``Score на объект'' рассчитано как \texttt{mean\_score\_time}, деленное на примерный размер validation-fold.
+
+Самой быстрой по обучению среди рассмотренных моделей оказалась KNN, однако это связано с ленивой природой метода: модель почти не обучает параметры, но переносит основную вычислительную нагрузку на этап предсказания. Поэтому KNN имеет худшее среднее время скоринга на объект. Decision Tree и Logistic Regression дают быстрые обучение и скоринг, но уступают лучшим моделям по качеству. XGBoost показывает лучший компромисс: он существенно качественнее простых моделей, быстрее Random Forest и значительно быстрее нейронной сети на этапе обучения. Neural Network оказалась самой дорогой по времени обучения из-за многократных эпох оптимизации, при этом по качеству она не превзошла XGBoost.
+
+\section{Permutation Importance}
+
+\scriptsize
+\begin{longtable}{lllll}
+\caption{Топ-5 признаков по permutation importance для каждой модели}\label{tab:permutation_importance}\\
+\toprule
+Модель & Ранг & Признак & Importance mean & Importance std \\
+\midrule
+\endfirsthead
+\toprule
+Модель & Ранг & Признак & Importance mean & Importance std \\
+\midrule
+\endhead
+Logistic Regression & 1 & location\_and\_movement & 0.0312 & 0.0021 \\
+Logistic Regression & 2 & curbside\_dropoff\_ease & 0.0159 & 0.0020 \\
+Logistic Regression & 3 & boarding\_lounge\_comfort & 0.0074 & 0.0018 \\
+Logistic Regression & 4 & overall\_airport\_cleanliness & 0.0073 & 0.0008 \\
+Logistic Regression & 5 & ticket\_purchase\_process & 0.0039 & 0.0008 \\
+Decision Tree & 1 & location\_and\_movement & 0.1239 & 0.0045 \\
+Decision Tree & 2 & overall\_airport\_cleanliness & 0.0412 & 0.0035 \\
+Decision Tree & 3 & boarding\_lounge\_comfort & 0.0174 & 0.0005 \\
+Decision Tree & 4 & thermal\_comfort & 0.0142 & 0.0018 \\
+Decision Tree & 5 & food\_beverage\_quality\_variety & 0.0060 & 0.0007 \\
+Random Forest & 1 & location\_and\_movement & 0.0289 & 0.0025 \\
+Random Forest & 2 & overall\_airport\_cleanliness & 0.0253 & 0.0010 \\
+Random Forest & 3 & boarding\_lounge\_comfort & 0.0060 & 0.0019 \\
+Random Forest & 4 & flight\_information\_display\_availability & 0.0027 & 0.0004 \\
+Random Forest & 5 & restrooms & 0.0019 & 0.0011 \\
+KNN & 1 & location\_and\_movement & 0.0054 & 0.0024 \\
+KNN & 2 & overall\_airport\_cleanliness & 0.0033 & 0.0003 \\
+KNN & 3 & thermal\_comfort & 0.0028 & 0.0009 \\
+KNN & 4 & seat\_availability & 0.0028 & 0.0004 \\
+KNN & 5 & ticket\_purchase\_process & 0.0023 & 0.0015 \\
+XGBoost & 1 & location\_and\_movement & 0.0409 & 0.0034 \\
+XGBoost & 2 & overall\_airport\_cleanliness & 0.0242 & 0.0021 \\
+XGBoost & 3 & boarding\_lounge\_comfort & 0.0084 & 0.0018 \\
+XGBoost & 4 & power\_outlet\_availability & 0.0075 & 0.0013 \\
+XGBoost & 5 & security\_screening\_process & 0.0045 & 0.0014 \\
+Neural Network & 1 & location\_and\_movement & 0.0485 & 0.0016 \\
+Neural Network & 2 & curbside\_dropoff\_ease & 0.0239 & 0.0033 \\
+Neural Network & 3 & overall\_airport\_cleanliness & 0.0180 & 0.0023 \\
+Neural Network & 4 & boarding\_lounge\_comfort & 0.0122 & 0.0025 \\
+Neural Network & 5 & thermal\_comfort & 0.0062 & 0.0007 \\
+\bottomrule
+\end{longtable}
+\normalsize
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{logistic_regression_images/logistic_regression_permutation_importance.png}
+\caption{Permutation importance: Logistic Regression}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{decision_tree_images/decision_tree_permutation_importance.png}
+\caption{Permutation importance: Decision Tree}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{random_forest_images/random_forest_permutation_importance.png}
+\caption{Permutation importance: Random Forest}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{knn_images_second_approach/knn_permutation_importance.png}
+\caption{Permutation importance: KNN}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{xgboost_images/xgboost_permutation_importance.png}
+\caption{Permutation importance: XGBoost}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{neural_network_images/neural_network_permutation_importance.png}
+\caption{Permutation importance: Neural Network}
+\end{figure}
+
+Во всех сильных моделях среди наиболее важных признаков встречаются оценки перемещения и навигации в аэропорту, чистоты аэропорта, удобства высадки и другие элементы пассажирского процесса. Наиболее стабильным признаком оказался \texttt{location\_and\_movement}: он занимает первое место во всех моделях. Это показывает, что итоговая удовлетворенность существенно связана не только с характеристиками рейса, но и с качеством аэропортовой инфраструктуры и отдельных процедур обслуживания. Практически такой результат означает, что улучшение навигации, чистоты, комфорта зоны ожидания и смежных сервисных процессов может быть более эффективным направлением работы, чем оптимизация только отдельных параметров перелета.
+
+
+\chapter{Применение моделей машинного обучения на практике}
+Результаты работы могут быть использованы в системе поддержки принятия решений авиакомпании или аэропорта. Модель прогнозирования удовлетворенности позволяет заранее выделять пассажиров с высоким риском неудовлетворенности и анализировать факторы, которые наиболее сильно влияют на итоговую оценку клиента.
+
+Один из прикладных сценариев состоит в приоритизации улучшений сервиса. Если модель показывает, что определенные признаки, например навигация в аэропорту, чистота, время ожидания или качество процесса получения багажа, существенно влияют на вероятность удовлетворенности, то организация может направлять ресурсы именно на эти элементы обслуживания. Такой подход отличается от простого описательного анализа тем, что учитывает совместное влияние признаков и позволяет оценивать потенциальный эффект изменений.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{research_docx_images/word/media/image3.png}
+\caption{Сценарий раннего выявления недовольных клиентов на основе данных авиакомпании}
+\end{figure}
+
+В работе также реализована функция поиска минимально затратного набора изменений признаков, переводящего клиента в класс удовлетворенных пассажиров с точки зрения обученной модели. Формально эта задача рассматривается как поиск пути в графе состояний: вершинами являются возможные состояния клиента, а ребрами --- допустимые изменения отдельных признаков с заданной стоимостью. Алгоритм находит состояние, в котором модель прогнозирует положительный класс, с минимальной суммарной стоимостью переходов. Такой инструмент может использоваться как прототип рекомендательной логики для выбора наиболее эффективных управленческих действий.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{research_docx_images/word/media/image1.png}
+\caption{Пример использования модели и алгоритма оптимизации на этапе покупки билета}
+\end{figure}
+
+Важно подчеркнуть, что подобная функция не должна использоваться как автоматическая система принятия решений без экспертной проверки. Ее результаты зависят от качества модели, корректности заданных стоимостей изменений и полноты данных. Тем не менее она демонстрирует, как классификационная модель может быть связана с практической задачей оптимизации клиентского опыта.
+
+Еще один практический сценарий связан с тестированием новых сервисных стратегий. В традиционном A/B-тестировании часть клиентов сталкивается с новой стратегией напрямую, и при неудачном решении компания может получить рост недовольства, снижение лояльности и финансовые потери. ML-модель позволяет предварительно смоделировать реакцию клиентов на исторических данных, оценить риск запуска стратегии и отобрать только те варианты, которые имеют высокую вероятность положительного эффекта.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{research_docx_images/word/media/image2.png}
+\caption{Использование ML-модели для безопасного предварительного тестирования сервисных стратегий}
+\end{figure}
+
+\chapter*{Заключение}
+\addcontentsline{toc}{chapter}{Заключение}
+В ходе работы была решена задача сравнительного исследования моделей машинного обучения для прогнозирования удовлетворенности пассажиров авиаперевозок. Был проведен анализ первичного Kaggle-датасета, по результатам которого было принято решение отказаться от него из-за подозрительно высоких метрик и недостаточной проверяемости источника. В качестве основного источника были использованы данные пассажирских опросов Министерства транспорта Бразилии.
+
+Был разработан процесс формирования итогового сбалансированного датасета, включающий объединение файлов опросов, нормализацию структуры, обработку методологических пропусков, создание индикаторов применимости вопросов и балансировку классов. Итоговый датасет содержит 57514 наблюдений и используется для бинарной классификации удовлетворенности пассажиров.
+
+Были обучены и сравнены шесть моделей: Logistic Regression, KNN, Decision Tree, Random Forest, XGBoost и Neural Network. Для всех моделей применялась единая схема preprocessing и кросс-валидации. Лучшие результаты показал XGBoost, что подтверждает эффективность градиентного бустинга для табличных данных со смешанными признаками. Нейронная сеть также показала конкурентоспособное качество, но не превзошла XGBoost. Более простые модели оказались полезны как базовые и интерпретируемые ориентиры.
+
+Дополнительно были проведены анализ порога классификации, анализ ошибок, fairness analysis, robustness check, построение кривых обучения и оценка permutation importance. Это позволило оценить модели не только по среднему качеству классификации, но и по устойчивости, интерпретируемости и применимости в практическом сценарии. Полученные результаты могут быть использованы как основа для системы поддержки принятия решений, направленной на улучшение пассажирского опыта.
+
+\begin{thebibliography}{99}
+\bibitem{hastie} Hastie T., Tibshirani R., Friedman J. The Elements of Statistical Learning. Springer, 2009.
+\bibitem{bishop} Bishop C.M. Pattern Recognition and Machine Learning. Springer, 2006.
+\bibitem{murphy} Murphy K.P. Machine Learning: A Probabilistic Perspective. MIT Press, 2012.
+\bibitem{breiman-rf} Breiman L. Random Forests // Machine Learning. 2001. Vol. 45. P. 5--32.
+\bibitem{cart} Breiman L., Friedman J.H., Olshen R.A., Stone C.J. Classification and Regression Trees. Wadsworth, 1984.
+\bibitem{knn} Cover T., Hart P. Nearest Neighbor Pattern Classification // IEEE Transactions on Information Theory. 1967. Vol. 13, No. 1. P. 21--27.
+\bibitem{xgboost} Chen T., Guestrin C. XGBoost: A Scalable Tree Boosting System // Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining. 2016. P. 785--794.
+\bibitem{sklearn} Scikit-learn developers. Scikit-learn User Guide. URL: \url{https://scikit-learn.org/stable/user_guide.html} (дата обращения: 16.05.2026).
+\bibitem{xgbdocs} XGBoost developers. XGBoost Documentation. URL: \url{https://xgboost.readthedocs.io/} (дата обращения: 16.05.2026).
+\bibitem{pytorch} PyTorch Foundation. PyTorch Documentation. URL: \url{https://pytorch.org/docs/stable/index.html} (дата обращения: 16.05.2026).
+\bibitem{skorch} Skorch developers. Skorch Documentation. URL: \url{https://skorch.readthedocs.io/} (дата обращения: 16.05.2026).
+\bibitem{kaggle-old} Teejmahal20. Airline Passenger Satisfaction Dataset. URL: \url{https://www.kaggle.com/datasets/teejmahal20/airline-passenger-satisfaction} (дата обращения: 16.05.2026).
+\bibitem{brazil-data} Ministério dos Transportes do Brasil. Pesquisa de satisfação do passageiro em aeroportos. URL: \url{https://dados.transportes.gov.br/dataset/pesquisa-de-satisfacao-do-passageiro-em-aeroportos} (дата обращения: 16.05.2026).
+\bibitem{icao-ai} ICAO. Global aviation leaders chart path for artificial intelligence integration. URL: \url{https://www.icao.int/news/global-aviation-leaders-chart-path-artificial-intelligence-integration-antalya-conference} (дата обращения: 16.05.2026).
+\bibitem{iata-data} IATA. Recognizing the future importance of data. URL: \url{https://airlines.iata.org/2025/05/15/recognizing-future-importance-data} (дата обращения: 16.05.2026).
+\bibitem{aci-digital} ACI World. The Acceleration of Digital Transformation in Airports. URL: \url{https://blog.aci.aero/the-acceleration-of-digital-transformation-in-airports/} (дата обращения: 16.05.2026).
+\bibitem{aci-asq} ACI World. Airport Service Quality (ASQ). URL: \url{https://aci.aero/programs-and-services/asq/} (дата обращения: 16.05.2026).
+\bibitem{easa-roadmap} EASA. Artificial Intelligence Roadmap 2.0. URL: \url{https://www.easa.europa.eu/it/document-library/general-publications/easa-artificial-intelligence-roadmap-20} (дата обращения: 16.05.2026).
+\bibitem{easa-concept} EASA. Artificial Intelligence Concept Paper Issue 2. URL: \url{https://www.easa.europa.eu/nl/newsroom-and-events/news/easa-publishes-artificial-intelligence-concept-paper-issue-2-guidance} (дата обращения: 16.05.2026).
+\bibitem{nist-rmf} NIST. AI Risk Management Framework. URL: \url{https://www.nist.gov/itl/ai-risk-management-framework} (дата обращения: 16.05.2026).
+\bibitem{nist-characteristics} NIST. AI RMF: Characteristics of Trustworthy AI. URL: \url{https://airc.nist.gov/airmf-resources/airmf/3-sec-characteristics/} (дата обращения: 16.05.2026).
+\bibitem{github} Rustam432184798213651. Machine learning models study. URL: \url{https://github.com/rustam432184798213651/machine_learning_models_study} (дата обращения: 16.05.2026).
+\end{thebibliography}
+
+\appendix
+\chapter{Электронные ресурсы проекта}
+Полный исходный код, использованный для подготовки данных, обучения моделей, расчета метрик и построения визуализаций, размещен в GitHub-репозитории:\\
+\url{https://github.com/rustam432184798213651/machine_learning_models_study}
+
+Использованный итоговый датасет опубликован на Kaggle:\\
+\url{https://www.kaggle.com/datasets/rustam32/real-airline-passenger-satisfaction-dataset/data}
+
+\end{document}

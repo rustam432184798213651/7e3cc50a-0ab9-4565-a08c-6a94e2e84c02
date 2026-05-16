@@ -1,2 +1,0 @@
-﻿model,roc_auc,score_source,n_holdout_objects
-Logistic Regression,0.8882458009404964,predict_proba,5752
