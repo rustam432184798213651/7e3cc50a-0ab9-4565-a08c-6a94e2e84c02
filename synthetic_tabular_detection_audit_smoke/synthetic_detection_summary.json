@@ -1,0 +1,168 @@
+{
+  "paper": {
+    "title": "Cross-table Synthetic Tabular Data Detection",
+    "arxiv": "https://arxiv.org/abs/2412.13227",
+    "method_used": "Row linearization as <column>:<value> strings + character trigram logistic regression baseline.",
+    "paper_reported_cross_table_baseline": {
+      "model": "3grm-LReg",
+      "auc": 0.58,
+      "accuracy": 0.55,
+      "note": "Reported for All Models vs Real, All Tables, Cross-table shift."
+    },
+    "local_metric_note": "separability_auc=max(AUC, 1-AUC). It measures whether two samples are separable even when the detector's positive-class orientation is reversed."
+  },
+  "inputs": {
+    "target_rows_used": 2000,
+    "target_columns": [
+      "Unnamed: 0",
+      "id",
+      "Gender",
+      "Customer Type",
+      "Age",
+      "Type of Travel",
+      "Class",
+      "Flight Distance",
+      "Inflight wifi service",
+      "Departure/Arrival time convenient",
+      "Ease of Online booking",
+      "Gate location",
+      "Food and drink",
+      "Online boarding",
+      "Seat comfort",
+      "Inflight entertainment",
+      "On-board service",
+      "Leg room service",
+      "Baggage handling",
+      "Checkin service",
+      "Inflight service",
+      "Cleanliness",
+      "Departure Delay in Minutes",
+      "Arrival Delay in Minutes",
+      "satisfaction",
+      "__split"
+    ],
+    "reference_real_path": "balanced_passenger_survey_dataset/passenger_survey_balanced.csv",
+    "reference_rows_used": 2000
+  },
+  "detector_results": [
+    {
+      "view": "full_content",
+      "setup": "same_table_c2st",
+      "generator": "independent_marginals",
+      "auc": 0.4095361111111111,
+      "separability_auc": 0.5904638888888889,
+      "accuracy": 0.445,
+      "n_real": 2000,
+      "n_synthetic": 2000,
+      "interpretation": "Same-table C2ST. High AUC means the script can distinguish the Kaggle rows from a simple synthetic control generated from the same table. This does not prove the Kaggle rows are real; it only checks whether naive synthetic controls have detectable artifacts."
+    },
+    {
+      "view": "full_content",
+      "setup": "same_table_c2st",
+      "generator": "column_permutation",
+      "auc": 0.21928333333333333,
+      "separability_auc": 0.7807166666666667,
+      "accuracy": 0.2966666666666667,
+      "n_real": 2000,
+      "n_synthetic": 2000,
+      "interpretation": "Same-table C2ST. High AUC means the script can distinguish the Kaggle rows from a simple synthetic control generated from the same table. This does not prove the Kaggle rows are real; it only checks whether naive synthetic controls have detectable artifacts."
+    },
+    {
+      "view": "full_content",
+      "setup": "same_table_c2st",
+      "generator": "numeric_smoothed_marginals",
+      "auc": 1.0,
+      "separability_auc": 1.0,
+      "accuracy": 1.0,
+      "n_real": 2000,
+      "n_synthetic": 2000,
+      "interpretation": "Same-table C2ST. High AUC means the script can distinguish the Kaggle rows from a simple synthetic control generated from the same table. This does not prove the Kaggle rows are real; it only checks whether naive synthetic controls have detectable artifacts."
+    },
+    {
+      "view": "full_content",
+      "setup": "cross_table_reference_detector",
+      "generator": "all_simple_controls",
+      "auc": 0.4468620370370371,
+      "separability_auc": 0.5531379629629629,
+      "accuracy": 0.4870833333333333,
+      "n_real": 2000,
+      "n_synthetic": 6000,
+      "interpretation": "Cross-table detector inspired by arXiv:2412.13227. It is trained on a reference real passenger survey table and simple synthetic controls, then applied to the Kaggle table. Because the paper reports weak cross-table performance for the 3-gram logistic baseline (AUC about 0.58 under cross-table shift), this score is only a risk indicator, not proof of synthetic origin."
+    },
+    {
+      "view": "feature_only",
+      "setup": "same_table_c2st",
+      "generator": "independent_marginals",
+      "auc": 0.4064,
+      "separability_auc": 0.5936,
+      "accuracy": 0.44,
+      "n_real": 2000,
+      "n_synthetic": 2000,
+      "interpretation": "Same-table C2ST. High AUC means the script can distinguish the Kaggle rows from a simple synthetic control generated from the same table. This does not prove the Kaggle rows are real; it only checks whether naive synthetic controls have detectable artifacts."
+    },
+    {
+      "view": "feature_only",
+      "setup": "same_table_c2st",
+      "generator": "column_permutation",
+      "auc": 0.24661388888888888,
+      "separability_auc": 0.7533861111111111,
+      "accuracy": 0.31083333333333335,
+      "n_real": 2000,
+      "n_synthetic": 2000,
+      "interpretation": "Same-table C2ST. High AUC means the script can distinguish the Kaggle rows from a simple synthetic control generated from the same table. This does not prove the Kaggle rows are real; it only checks whether naive synthetic controls have detectable artifacts."
+    },
+    {
+      "view": "feature_only",
+      "setup": "same_table_c2st",
+      "generator": "numeric_smoothed_marginals",
+      "auc": 1.0,
+      "separability_auc": 1.0,
+      "accuracy": 1.0,
+      "n_real": 2000,
+      "n_synthetic": 2000,
+      "interpretation": "Same-table C2ST. High AUC means the script can distinguish the Kaggle rows from a simple synthetic control generated from the same table. This does not prove the Kaggle rows are real; it only checks whether naive synthetic controls have detectable artifacts."
+    },
+    {
+      "view": "feature_only",
+      "setup": "cross_table_reference_detector",
+      "generator": "all_simple_controls",
+      "auc": 0.4468620370370371,
+      "separability_auc": 0.5531379629629629,
+      "accuracy": 0.4870833333333333,
+      "n_real": 2000,
+      "n_synthetic": 6000,
+      "interpretation": "Cross-table detector inspired by arXiv:2412.13227. It is trained on a reference real passenger survey table and simple synthetic controls, then applied to the Kaggle table. Because the paper reports weak cross-table performance for the 3-gram logistic baseline (AUC about 0.58 under cross-table shift), this score is only a risk indicator, not proof of synthetic origin."
+    }
+  ],
+  "cross_table_scores": {
+    "full_content": {
+      "target_oriented_synthetic_probability_mean": 0.3357358680913119,
+      "target_oriented_synthetic_probability_median": 0.28392498449778486,
+      "target_oriented_synthetic_probability_q10": 0.05606689121886529,
+      "target_oriented_synthetic_probability_q90": 0.707986095961551,
+      "target_raw_synthetic_probability_mean": 0.6642641319086882,
+      "target_raw_synthetic_probability_median": 0.7160750155022151,
+      "reference_real_holdout_mean": 0.4787645203024892,
+      "reference_synthetic_holdout_mean": 0.500799641676845,
+      "holdout_auc": 0.4468620370370371,
+      "holdout_separability_auc": 0.5531379629629629,
+      "orientation_flipped": true,
+      "holdout_accuracy": 0.4870833333333333
+    },
+    "feature_only": {
+      "target_oriented_synthetic_probability_mean": 0.3766189042284159,
+      "target_oriented_synthetic_probability_median": 0.3325074979094123,
+      "target_oriented_synthetic_probability_q10": 0.073750373388249,
+      "target_oriented_synthetic_probability_q90": 0.7513894363103926,
+      "target_raw_synthetic_probability_mean": 0.6233810957715841,
+      "target_raw_synthetic_probability_median": 0.6674925020905877,
+      "reference_real_holdout_mean": 0.4787645203024892,
+      "reference_synthetic_holdout_mean": 0.500799641676845,
+      "holdout_auc": 0.4468620370370371,
+      "holdout_separability_auc": 0.5531379629629629,
+      "orientation_flipped": true,
+      "holdout_accuracy": 0.4870833333333333
+    }
+  },
+  "conclusion_guardrail": "Synthetic-tabular detection is not an authenticity proof. Use the output as supporting evidence together with provenance checks, leakage checks, and dataset documentation."
+}

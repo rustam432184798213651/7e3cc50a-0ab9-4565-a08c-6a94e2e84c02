@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.5.8)  16 MAY 2026 16:49
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.5.8)  17 MAY 2026 12:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -846,173 +846,148 @@ Overfull \hbox (26.30937pt too wide) in paragraph at lines 98--99
 ии. В документе \TU/TimesNewRoman(1)/m/it/14.4 Artificial Intelligence
  []
 
-[8]
-Overfull \hbox (19.10464pt too wide) in paragraph at lines 115--116
+[8] [9]
+Overfull \hbox (19.10464pt too wide) in paragraph at lines 121--122
 []\TU/TimesNewRoman(1)/m/n/14.4 обучить и настроить несколько моделей машинного
  обучения: Logistic Regression,
  []
 
 
-Overfull \hbox (0.20001pt too wide) in paragraph at lines 117--118
-[]\TU/TimesNewRoman(1)/m/n/14.4 провести расширенный анализ моделей: learning c
-urves, threshold analysis, error
+Overfull \hbox (2.91747pt too wide) in paragraph at lines 123--124
+\TU/TimesNewRoman(1)/m/n/14.4 производительности, анализ устойчивости, перестан
+овочная важность призна-
  []
 
-
-Overfull \hbox (18.2491pt too wide) in paragraph at lines 122--123
-\TU/TimesNewRoman(1)/m/n/14.4 боте используется расширенная схема оценки качест
-ва, включающая кросс-валидацию,
- []
-
-[9] [10]
+[10] [11]
 Глава 2.
-[11
+[12
 
-] [12] [13] [14] [15]
+] [13] [14] [15] [16]
 Глава 3.
-[16
+[17
 
-] [17]
+] [18] [19]
 Глава 4.
-[18
 
-]
-Глава 5.
-
-Overfull \hbox (4.53944pt too wide) in paragraph at lines 250--251
+Overfull \hbox (4.53944pt too wide) in paragraph at lines 239--240
 \TU/TimesNewRoman(1)/m/n/14.4 пользуемую для дополнительных анализов: fairness 
 analysis, error analysis и robustness
  []
 
 
-Overfull \hbox (3.36479pt too wide) in paragraph at lines 252--253
+Overfull \hbox (3.36479pt too wide) in paragraph at lines 241--242
 []\TU/TimesNewRoman(1)/m/n/14.4 Для обработки признаков использовался \TU/Couri
 erNew(1)/m/n/14.4 sklearn Pipeline\TU/TimesNewRoman(1)/m/n/14.4 . Числовые при-
 
  []
 
 
-Overfull \hbox (32.71355pt too wide) in paragraph at lines 252--253
+Overfull \hbox (32.71355pt too wide) in paragraph at lines 241--242
 \TU/TimesNewRoman(1)/m/n/14.4 нейронной сети дополнительно выполнялось приведен
 ие матрицы признаков к \TU/CourierNew(1)/m/n/14.4 float32\TU/TimesNewRoman(1)/m
 /n/14.4 .
  []
 
-[19
+[20
 
 ]
-Overfull \hbox (54.04118pt too wide) in paragraph at lines 260--261
+Overfull \hbox (54.04118pt too wide) in paragraph at lines 249--250
 []\TU/TimesNewRoman(1)/m/n/14.4 Для Logistic Regression подбирался параметр \TU
 /CourierNew(1)/m/n/14.4 C\TU/TimesNewRoman(1)/m/n/14.4 , управляющий силой L2-р
 егуляризации.
  []
 
-
-Overfull \hbox (129.8656pt too wide) in paragraph at lines 279--280
-\TU/TimesNewRoman(1)/m/n/14.4 ний. Лучшее дерево использовало глубину 16, \TU/C
-ourierNew(1)/m/n/14.4 min_samples_leaf=20 \TU/TimesNewRoman(1)/m/n/14.4 и \TU/C
-ourierNew(1)/m/n/14.4 min_samples_split=300\TU/TimesNewRoman(1)/m/n/14.4 ,
- []
-
-[20] [21]
-Overfull \hbox (2.87253pt too wide) in paragraph at lines 371--372
-[]\TU/TimesNewRoman(1)/m/n/14.4 Для Neural Network подбирались размеры двух скр
-ытых слоев, dropout, learning
- []
-
-[22]
+[21] [22] [23] [24] [25]
 File: logistic_regression_images/logistic_regression_learning_curve.png Graphic
  file (type bmp)
 <logistic_regression_images/logistic_regression_learning_curve.png>
 File: decision_tree_images/decision_tree_learning_curve.png Graphic file (type 
 bmp)
 <decision_tree_images/decision_tree_learning_curve.png>
- [23]
 File: random_forest_images/random_forest_learning_curve.png Graphic file (type 
 bmp)
 <random_forest_images/random_forest_learning_curve.png>
-File: knn_images_second_approach/knn_learning_curve.png Graphic file (type bmp)
-
-<knn_images_second_approach/knn_learning_curve.png>
- [24]
+ [26]
+File: knn_images/knn_learning_curve.png Graphic file (type bmp)
+<knn_images/knn_learning_curve.png>
 File: xgboost_images/xgboost_learning_curve.png Graphic file (type bmp)
 <xgboost_images/xgboost_learning_curve.png>
+ [27]
 File: neural_network_images/neural_network_learning_curve.png Graphic file (typ
 e bmp)
 <neural_network_images/neural_network_learning_curve.png>
- [25]
-Overfull \hbox (26.32684pt too wide) in paragraph at lines 495--496
+ [28]
+Overfull \hbox (26.32684pt too wide) in paragraph at lines 493--494
 \TU/TimesNewRoman(1)/m/n/14.4 объема обучающих данных и насколько велик разрыв 
 между train- и validation-качеством.
  []
 
-[26]
+
+ignored: Infinite glue shrinkage found in box being split [29]
 File: logistic_regression_images/logistic_regression_fairness_f1_gaps.png Graph
 ic file (type bmp)
 <logistic_regression_images/logistic_regression_fairness_f1_gaps.png>
 File: decision_tree_images/decision_tree_fairness_f1_gaps.png Graphic file (typ
 e bmp)
 <decision_tree_images/decision_tree_fairness_f1_gaps.png>
- [27]
 File: random_forest_images/random_forest_fairness_f1_gaps.png Graphic file (typ
 e bmp)
 <random_forest_images/random_forest_fairness_f1_gaps.png>
-File: knn_images_second_approach/knn_fairness_f1_gaps.png Graphic file (type bm
-p)
-<knn_images_second_approach/knn_fairness_f1_gaps.png>
- [28]
+ [30]
+File: knn_images/knn_fairness_f1_gaps.png Graphic file (type bmp)
+<knn_images/knn_fairness_f1_gaps.png>
 File: xgboost_images/xgboost_fairness_f1_gaps.png Graphic file (type bmp)
 <xgboost_images/xgboost_fairness_f1_gaps.png>
+ [31]
 File: neural_network_images/neural_network_fairness_f1_gaps.png Graphic file (t
 ype bmp)
 <neural_network_images/neural_network_fairness_f1_gaps.png>
- [29] [30]
+ [32]
 File: logistic_regression_images/logistic_regression_confusion_matrix.png Graph
 ic file (type bmp)
 <logistic_regression_images/logistic_regression_confusion_matrix.png>
 File: decision_tree_images/decision_tree_confusion_matrix.png Graphic file (typ
 e bmp)
 <decision_tree_images/decision_tree_confusion_matrix.png>
+ [33]
 File: random_forest_images/random_forest_confusion_matrix.png Graphic file (typ
 e bmp)
 <random_forest_images/random_forest_confusion_matrix.png>
- [31]
-File: knn_images_second_approach/knn_confusion_matrix.png Graphic file (type bm
-p)
-<knn_images_second_approach/knn_confusion_matrix.png>
+File: knn_images/knn_confusion_matrix.png Graphic file (type bmp)
+<knn_images/knn_confusion_matrix.png>
+ [34]
 File: xgboost_images/xgboost_confusion_matrix.png Graphic file (type bmp)
 <xgboost_images/xgboost_confusion_matrix.png>
- [32]
 File: neural_network_images/neural_network_confusion_matrix.png Graphic file (t
 ype bmp)
 <neural_network_images/neural_network_confusion_matrix.png>
- [33]
+ [35] [36]
 File: logistic_regression_images/logistic_regression_threshold_analysis.png Gra
 phic file (type bmp)
 <logistic_regression_images/logistic_regression_threshold_analysis.png>
 File: decision_tree_images/decision_tree_threshold_analysis.png Graphic file (t
 ype bmp)
 <decision_tree_images/decision_tree_threshold_analysis.png>
- [34]
 File: random_forest_images/random_forest_threshold_analysis.png Graphic file (t
 ype bmp)
 <random_forest_images/random_forest_threshold_analysis.png>
-File: knn_images_second_approach/knn_threshold_analysis.png Graphic file (type 
-bmp)
-<knn_images_second_approach/knn_threshold_analysis.png>
- [35]
+ [37]
+File: knn_images/knn_threshold_analysis.png Graphic file (type bmp)
+<knn_images/knn_threshold_analysis.png>
 File: xgboost_images/xgboost_threshold_analysis.png Graphic file (type bmp)
 <xgboost_images/xgboost_threshold_analysis.png>
+ [38]
 File: neural_network_images/neural_network_threshold_analysis.png Graphic file 
 (type bmp)
 <neural_network_images/neural_network_threshold_analysis.png>
- [36]
-Overfull \hbox (0.80103pt too wide) in paragraph at lines 672--673
+ [39]
+Overfull \hbox (0.80103pt too wide) in paragraph at lines 670--671
 \TU/TimesNewRoman(1)/m/n/14.4 бенно важно при практическом использовании модели
  для раннего выявления неудо-
  []
 
-[37]
+
+ignored: Infinite glue shrinkage found in box being split [40]
 File: logistic_regression_images/logistic_regression_robustness_f1_drop.png Gra
 phic file (type bmp)
 <logistic_regression_images/logistic_regression_robustness_f1_drop.png>
@@ -1022,45 +997,43 @@ ype bmp)
 File: random_forest_images/random_forest_robustness_f1_drop.png Graphic file (t
 ype bmp)
 <random_forest_images/random_forest_robustness_f1_drop.png>
- [38]
-File: knn_images_second_approach/knn_robustness_f1_drop.png Graphic file (type 
-bmp)
-<knn_images_second_approach/knn_robustness_f1_drop.png>
+File: knn_images/knn_robustness_f1_drop.png Graphic file (type bmp)
+<knn_images/knn_robustness_f1_drop.png>
+ [41]
 File: xgboost_images/xgboost_robustness_f1_drop.png Graphic file (type bmp)
 <xgboost_images/xgboost_robustness_f1_drop.png>
- [39]
 File: neural_network_images/neural_network_robustness_f1_drop.png Graphic file 
 (type bmp)
 <neural_network_images/neural_network_robustness_f1_drop.png>
- [40]
-Overfull \hbox (2.1476pt too wide) in paragraph at lines 727--728
+ [42]
+Overfull \hbox (2.1476pt too wide) in paragraph at lines 725--726
 \TU/TimesNewRoman(1)/m/n/14.4 более устойчивым в данном эксперименте оказался R
 andom Forest: падение F1-macro
  []
 
-
-Overfull \hbox (16.3853pt too wide) in paragraph at lines 752--753
+[43]
+Overfull \hbox (16.3853pt too wide) in paragraph at lines 750--751
 []\TU/TimesNewRoman(1)/m/n/14.4 В файлах \TU/CourierNew(1)/m/n/14.4 models_perf
 ormance.csv \TU/TimesNewRoman(1)/m/n/14.4 сохранены параметры и качество кросс-
 
  []
 
 
-Overfull \hbox (83.83191pt too wide) in paragraph at lines 752--753
+Overfull \hbox (83.83191pt too wide) in paragraph at lines 750--751
 \TU/TimesNewRoman(1)/m/n/14.4 валидации, а тайминги лучших конфигураций берутся
  из файлов \TU/CourierNew(1)/m/n/14.4 *_cv_search_results.csv\TU/TimesNewRoman(
 1)/m/n/14.4 ,
  []
 
 
-Overfull \hbox (78.01476pt too wide) in paragraph at lines 752--753
+Overfull \hbox (78.01476pt too wide) in paragraph at lines 750--751
 \TU/TimesNewRoman(1)/m/n/14.4 где \TU/CourierNew(1)/m/n/14.4 mean_fit_time \TU/
 TimesNewRoman(1)/m/n/14.4 отражает среднее время обучения на одном CV-fold, а \
 TU/CourierNew(1)/m/n/14.4 mean_score_time
  []
 
-[41]
-ignored: Infinite glue shrinkage found in box being split [42]
+
+ignored: Infinite glue shrinkage found in box being split [44]
 File: logistic_regression_images/logistic_regression_permutation_importance.png
  Graphic file (type bmp)
 <logistic_regression_images/logistic_regression_permutation_importance.png>
@@ -1070,49 +1043,54 @@ e (type bmp)
 File: random_forest_images/random_forest_permutation_importance.png Graphic fil
 e (type bmp)
 <random_forest_images/random_forest_permutation_importance.png>
- [43]
-File: knn_images_second_approach/knn_permutation_importance.png Graphic file (t
-ype bmp)
-<knn_images_second_approach/knn_permutation_importance.png>
- [44]
+ [45]
+File: knn_images/knn_permutation_importance.png Graphic file (type bmp)
+<knn_images/knn_permutation_importance.png>
+ [46]
 File: xgboost_images/xgboost_permutation_importance.png Graphic file (type bmp)
 
 <xgboost_images/xgboost_permutation_importance.png>
- [45]
+ [47]
 File: neural_network_images/neural_network_permutation_importance.png Graphic f
 ile (type bmp)
 <neural_network_images/neural_network_permutation_importance.png>
- [46] [47]
-Overfull \hbox (2.98264pt too wide) in paragraph at lines 833--834
+ [48] [49]
+Overfull \hbox (2.98264pt too wide) in paragraph at lines 831--832
 []\TU/TimesNewRoman(1)/m/n/14.4 Во всех сильных моделях среди наиболее важных п
 ризнаков встречаются оцен-
  []
 
-[48]
-Глава 6.
+[50]
+Глава 5.
 File: research_docx_images/word/media/image3.png Graphic file (type bmp)
 <research_docx_images/word/media/image3.png>
-[49
+[51
 
 ]
 File: research_docx_images/word/media/image1.png Graphic file (type bmp)
 <research_docx_images/word/media/image1.png>
- [50]
+ [52]
 File: research_docx_images/word/media/image2.png Graphic file (type bmp)
 <research_docx_images/word/media/image2.png>
- [51] [52]
-Overfull \hbox (22.50546pt too wide) in paragraph at lines 873--874
+ [53] [54]
+Overfull \hbox (22.50546pt too wide) in paragraph at lines 871--872
 \TU/TimesNewRoman(1)/m/n/14.4 бок, fairness analysis, robustness check, построе
 ние кривых обучения и оценка permutation
  []
 
-[53
+[55
 
-] [54
+] [56
 
-] [55]
+]
+Underfull \hbox (badness 5652) in paragraph at lines 885--886
+[]\TU/TimesNewRoman(1)/m/n/14.4 Mittal N., Sagar A. Capstone Project: Airline P
+assenger Satisfaction. PG
+ []
+
+[57] [58]
 Приложение A.
-[56
+[59
 
 ] (./diploma_report.aux)
  ***********
@@ -1120,15 +1098,15 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `diploma_report.out' has not changed.
-(rerunfilecheck)             Checksum: 25A4E337F5FF957CD44D1B47A24A8ADA;7709.
+(rerunfilecheck)             Checksum: F8156B8366C5D6124EBF33861448E1A2;7537.
  ) 
 Here is how much of TeX's memory you used:
- 17513 strings out of 468168
- 352947 string characters out of 5432816
- 830897 words of memory out of 5000000
- 45907 multiletter control sequences out of 15000+600000
+ 17515 strings out of 468168
+ 352204 string characters out of 5432816
+ 832927 words of memory out of 5000000
+ 45909 multiletter control sequences out of 15000+600000
  634833 words of font info for 118 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  73i,17n,93p,1289b,618s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on diploma_report.pdf (57 pages).
+Output written on diploma_report.xdv (60 pages, 690320 bytes).

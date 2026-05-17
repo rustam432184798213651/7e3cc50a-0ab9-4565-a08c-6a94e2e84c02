@@ -2,38 +2,38 @@
 \contentsline {chapter}{\numberline {1}Введение}{7}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Предметная область}{7}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Актуальность проблемы}{7}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Цель работы}{8}{section.1.3}%
-\contentsline {section}{\numberline {1.4}Постановка задачи}{9}{section.1.4}%
+\contentsline {section}{\numberline {1.3}Цель работы}{9}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Постановка задачи}{10}{section.1.4}%
 \contentsline {section}{\numberline {1.5}Научная новизна и практическая значимость}{10}{section.1.5}%
-\contentsline {chapter}{\numberline {2}Используемые модели машинного обучения}{11}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Logistic Regression}{11}{section.2.1}%
-\contentsline {section}{\numberline {2.2}KNN}{11}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Decision Tree}{12}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Random Forest}{13}{section.2.4}%
-\contentsline {section}{\numberline {2.5}XGBoost}{13}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Neural Networks}{14}{section.2.6}%
-\contentsline {chapter}{\numberline {3}Датасет}{16}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Первичный датасет Kaggle и причина отказа от него}{16}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Данные пассажирских опросов Министерства транспорта Бразилии}{16}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Наблюдения по структуре данных}{17}{section.3.3}%
-\contentsline {chapter}{\numberline {4}Доработка датасета}{18}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Обучение моделей}{19}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Общая схема обучения}{19}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Подбор гиперпараметров}{19}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Logistic Regression}{20}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Decision Tree}{20}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Random Forest}{20}{subsection.5.2.3}%
-\contentsline {subsection}{\numberline {5.2.4}KNN}{21}{subsection.5.2.4}%
-\contentsline {subsection}{\numberline {5.2.5}XGBoost}{21}{subsection.5.2.5}%
-\contentsline {subsection}{\numberline {5.2.6}Neural Network}{22}{subsection.5.2.6}%
-\contentsline {section}{\numberline {5.3}Полученные метрики}{22}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Кривые обучения}{23}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Анализ справедливости модели}{27}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Анализ ошибок модели}{31}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Анализ порога классификации}{34}{section.5.7}%
-\contentsline {section}{\numberline {5.8}Устойчивость к шуму}{38}{section.5.8}%
-\contentsline {section}{\numberline {5.9}Производительность}{41}{section.5.9}%
-\contentsline {section}{\numberline {5.10}Permutation Importance}{42}{section.5.10}%
-\contentsline {chapter}{\numberline {6}Применение моделей машинного обучения на практике}{49}{chapter.6}%
-\contentsline {chapter}{Заключение}{53}{chapter*.43}%
-\contentsline {chapter}{\numberline {A}Электронные ресурсы проекта}{56}{appendix.A}%
+\contentsline {chapter}{\numberline {2}Используемые модели машинного обучения}{12}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Logistic Regression}{12}{section.2.1}%
+\contentsline {section}{\numberline {2.2}KNN}{12}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Decision Tree}{13}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Random Forest}{14}{section.2.4}%
+\contentsline {section}{\numberline {2.5}XGBoost}{15}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Neural Networks}{16}{section.2.6}%
+\contentsline {chapter}{\numberline {3}Датасет}{17}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Выбор источника данных}{17}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Формирование итогового набора}{17}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Целевая переменная и балансировка}{18}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Структура итогового датасета}{19}{section.3.4}%
+\contentsline {chapter}{\numberline {4}Обучение моделей}{20}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Общая схема обучения}{20}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Подбор гиперпараметров}{20}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Logistic Regression}{21}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Decision Tree}{21}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Random Forest}{22}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}KNN}{23}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.2.5}XGBoost}{23}{subsection.4.2.5}%
+\contentsline {subsection}{\numberline {4.2.6}Neural Network}{24}{subsection.4.2.6}%
+\contentsline {section}{\numberline {4.3}Полученные метрики}{25}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Кривые обучения}{26}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Анализ справедливости модели}{29}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Анализ ошибок модели}{33}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Анализ порога классификации}{37}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Устойчивость к шуму}{40}{section.4.8}%
+\contentsline {section}{\numberline {4.9}Производительность}{44}{section.4.9}%
+\contentsline {section}{\numberline {4.10}Перестановочная важность признаков}{44}{section.4.10}%
+\contentsline {chapter}{\numberline {5}Применение моделей машинного обучения на практике}{51}{chapter.5}%
+\contentsline {chapter}{Заключение}{55}{chapter*.43}%
+\contentsline {chapter}{\numberline {A}Электронные ресурсы проекта}{59}{appendix.A}%
