@@ -15,5 +15,5 @@
   "total_missing_values": 3323216,
   "features_with_missing_values": 76,
   "max_missing_rate": 0.9990437110964286,
-  "feature_summary_csv": "random_forest_results_second_approach/dataset_feature_summary.csv"
+  "feature_summary_csv": "random_forest_results/dataset_feature_summary.csv"
 }

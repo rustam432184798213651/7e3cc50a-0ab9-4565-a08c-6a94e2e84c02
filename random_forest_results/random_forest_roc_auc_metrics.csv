@@ -1,2 +1,2 @@
 ﻿model,roc_auc,score_source,n_holdout_objects
-Random Forest,0.8904014277672785,predict_proba,5752
+Random Forest,0.8910716910946861,predict_proba,5752

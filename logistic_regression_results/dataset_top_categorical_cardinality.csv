@@ -3,13 +3,13 @@ transport_to_airport,str,categorical,1,1.7387070974023714e-05,16,False,,,,,,Not 
 trip_purpose,str,categorical,24231,0.42130611677156865,16,False,,,,,,Leisure,0.47111137818105336
 month,str,categorical,0,0.0,12,False,,,,,,September,0.09813262857738986
 ticket_purchase_channel,str,categorical,16140,0.28062732552074277,12,False,,,,,,Not applicable,0.585657659399623
-uses_assistive_device,str,categorical,1134,0.019716938484542895,12,False,,,,,,Not applicable,0.9878857750975524
+uses_assistive_device,str,categorical,1701,0.02957540772681434,11,False,,,,,,Not applicable,0.997921631161199
 requested_special_assistance,str,categorical,1027,0.017856521890322358,11,False,,,,,,Not applicable,0.9860144812080656
 disembarkation_method_used,str,categorical,23949,0.416402962756894,11,False,,,,,,Not applicable,0.99159839118129
 household_income,str,categorical,24231,0.42130611677156865,8,False,,,,,,Between 4 and 10 minimum wages,0.28128473995733555
 education,str,categorical,24231,0.42130611677156865,7,False,,,,,,Higher education,0.49677012288555716
-trips_last_12_months,str,categorical,0,0.0,7,False,,,,,,2 to 3,0.26741315158048473
 age_group,str,categorical,24231,0.42130611677156865,6,False,,,,,,26 to 35 years,0.33798035032899676
+trips_last_12_months,str,categorical,0,0.0,6,False,,,,,,2 to 3,0.26741315158048473
 checkin_method,str,categorical,10976,0.1908404910108843,6,False,,,,,,Not applicable,0.5206712793845889
 has_disability,str,categorical,0,0.0,5,False,,,,,,No,0.9862642139305212
 number_of_companions,str,categorical,46143,0.8022916159543764,4,False,,,,,,1 person,0.618239380881189

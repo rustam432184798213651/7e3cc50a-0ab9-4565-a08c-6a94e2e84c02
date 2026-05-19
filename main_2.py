@@ -1,4 +1,4 @@
-model_name = "KNN"
+model_name = "XGBoost"
 # Available values:
 # "Logistic Regression"
 # "Decision Tree"
@@ -377,7 +377,7 @@ def build_preprocessor(X: pd.DataFrame) -> ColumnTransformer:
     ])
 
     categorical_pipeline = Pipeline([
-        ("imputer", SimpleImputer(strategy="most_frequent")),
+        ("imputer", SimpleImputer(strategy="constant", fill_value="Missing")),
         ("encoder", make_one_hot_encoder()),
     ])
 
@@ -793,72 +793,113 @@ def bootstrap_metric_confidence_intervals(
     if len(y_true) == 0:
         raise ValueError("Cannot build bootstrap intervals for an empty test set.")
 
+    if not isinstance(n_bootstrap, int) or n_bootstrap <= 0:
+        raise ValueError("n_bootstrap must be a positive integer.")
+
+    if not 0.0 < confidence_level < 1.0:
+        raise ValueError("confidence_level must be between 0 and 1.")
+
     rng = np.random.default_rng(RANDOM_STATE)
 
-    metric_functions = {
-        "accuracy": lambda yt, yp: accuracy_score(yt, yp),
-        "balanced_accuracy": lambda yt, yp: balanced_accuracy_score(yt, yp),
-        "f1_weighted": lambda yt, yp: f1_score(
-            yt,
-            yp,
-            average="weighted",
-            labels=[0, 1],
-            zero_division=0,
-        ),
-        "f1_macro": lambda yt, yp: f1_score(
-            yt,
-            yp,
-            average="macro",
-            labels=[0, 1],
-            zero_division=0,
-        ),
-        "precision_weighted": lambda yt, yp: precision_score(
-            yt,
-            yp,
-            average="weighted",
-            labels=[0, 1],
-            zero_division=0,
-        ),
-        "recall_weighted": lambda yt, yp: recall_score(
-            yt,
-            yp,
-            average="weighted",
-            labels=[0, 1],
-            zero_division=0,
-        ),
-        "sensitivity": lambda yt, yp: recall_score(
-            yt,
-            yp,
-            pos_label=1,
-            zero_division=0,
-        ),
-        "specificity": lambda yt, yp: recall_score(
-            yt,
-            yp,
-            pos_label=0,
-            zero_division=0,
-        ),
-    }
+    metric_specs = [
+        {
+            "name": "accuracy",
+            "requires_two_classes": False,
+            "func": lambda yt, yp: accuracy_score(yt, yp),
+        },
+        {
+            "name": "balanced_accuracy",
+            "requires_two_classes": True,
+            "func": lambda yt, yp: balanced_accuracy_score(yt, yp),
+        },
+        {
+            "name": "f1_weighted",
+            "requires_two_classes": False,
+            "func": lambda yt, yp: f1_score(
+                yt,
+                yp,
+                average="weighted",
+                labels=[0, 1],
+                zero_division=0,
+            ),
+        },
+        {
+            "name": "f1_macro",
+            "requires_two_classes": True,
+            "func": lambda yt, yp: f1_score(
+                yt,
+                yp,
+                average="macro",
+                labels=[0, 1],
+                zero_division=0,
+            ),
+        },
+        {
+            "name": "precision_weighted",
+            "requires_two_classes": False,
+            "func": lambda yt, yp: precision_score(
+                yt,
+                yp,
+                average="weighted",
+                labels=[0, 1],
+                zero_division=0,
+            ),
+        },
+        {
+            "name": "recall_weighted",
+            "requires_two_classes": False,
+            "func": lambda yt, yp: recall_score(
+                yt,
+                yp,
+                average="weighted",
+                labels=[0, 1],
+                zero_division=0,
+            ),
+        },
+        {
+            "name": "sensitivity",
+            "requires_two_classes": True,
+            "func": lambda yt, yp: recall_score(
+                yt,
+                yp,
+                pos_label=1,
+                zero_division=0,
+            ),
+        },
+        {
+            "name": "specificity",
+            "requires_two_classes": True,
+            "func": lambda yt, yp: recall_score(
+                yt,
+                yp,
+                pos_label=0,
+                zero_division=0,
+            ),
+        },
+    ]
 
     alpha = 1.0 - confidence_level
     lower_percentile = 100.0 * alpha / 2.0
     upper_percentile = 100.0 * (1.0 - alpha / 2.0)
+    bootstrap_indices = [
+        rng.integers(0, len(y_true), size=len(y_true))
+        for _ in range(n_bootstrap)
+    ]
 
     rows = []
 
-    for metric_name, metric_func in metric_functions.items():
+    for metric_spec in metric_specs:
+        metric_name = metric_spec["name"]
+        metric_func = metric_spec["func"]
         point_estimate = metric_func(y_true, y_pred)
         bootstrap_values = []
         skipped_samples = 0
 
-        for _ in range(n_bootstrap):
-            sample_indices = rng.integers(0, len(y_true), size=len(y_true))
+        for sample_indices in bootstrap_indices:
             sample_y_true = y_true[sample_indices]
             sample_y_pred = y_pred[sample_indices]
 
-            # balanced_accuracy and macro metrics are not meaningful when a
-            # bootstrap sample accidentally contains only one target class.
-            if len(np.unique(sample_y_true)) < 2:
+            if metric_spec["requires_two_classes"] and len(np.unique(sample_y_true)) < 2:
                 skipped_samples += 1
                 continue
 
@@ -867,7 +908,11 @@ def bootstrap_metric_confidence_intervals(
         if bootstrap_values:
             bootstrap_values = np.asarray(bootstrap_values)
             bootstrap_mean = float(bootstrap_values.mean())
-            bootstrap_std = float(bootstrap_values.std(ddof=1))
+            bootstrap_std = (
+                float(bootstrap_values.std(ddof=1))
+                if len(bootstrap_values) > 1
+                else np.nan
+            )
             ci_lower = float(np.percentile(bootstrap_values, lower_percentile))
             ci_upper = float(np.percentile(bootstrap_values, upper_percentile))
             n_bootstrap_used = len(bootstrap_values)
@@ -1925,26 +1970,6 @@ def run_error_and_fairness_analysis(
 # Robustness check
 # ============================================================
 
-def add_numeric_noise(X_part, numeric_cols, train_std, noise_level, rng):
-    X_noisy = X_part.copy()
-
-    for col in numeric_cols:
-        std = train_std.get(col, 0.0)
-
-        if pd.isna(std) or std == 0:
-            continue
-
-        noise = rng.normal(
-            loc=0.0,
-            scale=noise_level * std,
-            size=len(X_noisy),
-        )
-
-        X_noisy[col] = X_noisy[col].astype(float) + noise
-
-    return X_noisy
-
-
 def add_missing_values(X_part, missing_rate, rng):
     X_missing = X_part.copy()
 
@@ -1980,6 +2005,69 @@ def replace_categorical_values(X_part, categorical_cols, categories_by_col, repl
     return X_changed
 
 
+def find_rating_columns(X_part, candidate_cols):
+    rating_values = {1, 2, 3, 4, 5}
+    rating_cols = []
+
+    for col in candidate_cols:
+        values = pd.Series(X_part[col].dropna().unique())
+
+        if len(values) == 0:
+            continue
+
+        numeric_values = pd.to_numeric(values, errors="coerce")
+
+        if numeric_values.isna().any():
+            continue
+
+        if not np.all(np.isclose(numeric_values, np.round(numeric_values))):
+            continue
+
+        unique_values = set(numeric_values.astype(int).tolist())
+
+        if unique_values.issubset(rating_values):
+            rating_cols.append(col)
+
+    return rating_cols
+
+
+def shift_rating_values(X_part, rating_cols, shift_rate, rng):
+    X_shifted = X_part.copy()
+
+    for col in rating_cols:
+        valid_mask = X_shifted[col].isin([1, 2, 3, 4, 5])
+        mask = (rng.random(len(X_shifted)) < shift_rate) & valid_mask.to_numpy()
+
+        if mask.sum() == 0:
+            continue
+
+        values = X_shifted.loc[mask, col].astype(int)
+        shifts = rng.choice([-1, 1], size=len(values))
+
+        shifts = np.where(values <= 1, 1, shifts)
+        shifts = np.where(values >= 5, -1, shifts)
+
+        X_shifted.loc[mask, col] = values + shifts
+
+    return X_shifted
+
+
+def flip_binary_values(X_part, binary_cols, flip_rate, rng):
+    X_flipped = X_part.copy()
+
+    for col in binary_cols:
+        valid_mask = X_flipped[col].isin([0, 1])
+        mask = (rng.random(len(X_flipped)) < flip_rate) & valid_mask.to_numpy()
+
+        if mask.sum() == 0:
+            continue
+
+        values = X_flipped.loc[mask, col]
+        X_flipped.loc[mask, col] = 1 - values.astype(int)
+
+    return X_flipped
+
+
 def run_model_robustness_check(model_name, fitted_model, X_train, X_test, y_test):
     # Создаем папки, куда будут сохранены таблица с результатами
     # robustness-проверки и графики изменения качества.
@@ -1999,13 +2087,22 @@ def run_model_robustness_check(model_name, fitted_model, X_train, X_test, y_test
         include=["int64", "int32", "float64", "float32"]
     ).columns.tolist()
 
+    binary_indicator_cols = [
+        col for col in numeric_cols
+        if col.endswith("_is_applicable")
+    ]
+
+    rating_cols = find_rating_columns(
+        X_test,
+        [
+            col for col in numeric_cols
+            if col not in binary_indicator_cols
+        ],
+    )
+
     categorical_cols = X_test.select_dtypes(
         include=["object", "category", "string", "bool"]
     ).columns.tolist()
-
-    # Стандартные отклонения считаются по обучающей выборке: они задают
-    # масштаб шума для числовых признаков.
-    train_std = X_train[numeric_cols].std(numeric_only=True).to_dict()
 
     # Для категориальных признаков запоминаем допустимые значения из train,
     # чтобы при замене не создавать несуществующие категории.
@@ -2030,22 +2127,41 @@ def run_model_robustness_check(model_name, fitted_model, X_train, X_test, y_test
         "accuracy": accuracy_score(y_test, y_pred_clean),
     })
 
-    # Проверяем устойчивость к небольшому случайному шуму в числовых колонках.
-    # noise_level означает долю от стандартного отклонения признака.
-    for noise_level in [0.01, 0.03, 0.05, 0.10]:
-        X_noisy = add_numeric_noise(
+    # Проверяем устойчивость к ошибкам в рейтинговых признаках 1-5:
+    # часть значений случайно сдвигается на соседнюю оценку.
+    for shift_rate in [0.01, 0.03, 0.05]:
+        X_shifted = shift_rating_values(
             X_test,
-            numeric_cols,
-            train_std,
-            noise_level,
+            rating_cols,
+            shift_rate,
             rng,
         )
 
-        y_pred = fitted_model.predict(X_noisy)
+        y_pred = fitted_model.predict(X_shifted)
 
         results.append({
-            "test_type": "numeric_noise",
-            "level": noise_level,
+            "test_type": "rating_shift",
+            "level": shift_rate,
+            "f1_macro": f1_score(y_test, y_pred, average="macro"),
+            "f1_weighted": f1_score(y_test, y_pred, average="weighted"),
+            "accuracy": accuracy_score(y_test, y_pred),
+        })
+
+    # Проверяем устойчивость к ошибкам в бинарных индикаторах применимости:
+    # часть значений 0/1 случайно переворачивается.
+    for flip_rate in [0.01, 0.03, 0.05]:
+        X_flipped = flip_binary_values(
+            X_test,
+            binary_indicator_cols,
+            flip_rate,
+            rng,
+        )
+
+        y_pred = fitted_model.predict(X_flipped)
+
+        results.append({
+            "test_type": "binary_flip",
+            "level": flip_rate,
             "f1_macro": f1_score(y_test, y_pred, average="macro"),
             "f1_weighted": f1_score(y_test, y_pred, average="weighted"),
             "accuracy": accuracy_score(y_test, y_pred),
@@ -2136,6 +2252,49 @@ def run_model_robustness_check(model_name, fitted_model, X_train, X_test, y_test
     return robustness_df
 
 
+def split_dataset_for_model(dataset, target_column=TARGET_COLUMN):
+    if isinstance(dataset, tuple) and len(dataset) == 2:
+        X_part, y_part = dataset
+        return X_part.copy(), y_part.copy()
+
+    if not isinstance(dataset, pd.DataFrame):
+        raise TypeError("dataset must be a pandas DataFrame or a tuple (X, y).")
+
+    if target_column not in dataset.columns:
+        raise ValueError(f"dataset does not contain target column {target_column!r}.")
+
+    X_part = dataset.drop(columns=[target_column])
+    y_part = dataset[target_column].copy()
+
+    return X_part, y_part
+
+
+def train_model_on_dataset_and_run_robustness_check(
+    model_name,
+    X_train,
+    y_train,
+    X_test,
+    y_test,
+    hyperparameters
+):
+    normalized_name = normalize_model_name(model_name)
+
+    preprocessor = build_preprocessor(X_train)
+    pipeline = build_pipeline(normalized_name, preprocessor)
+    pipeline.set_params(**dict(hyperparameters))
+    pipeline.fit(X_train, y_train)
+
+    robustness_df = run_model_robustness_check(
+        normalized_name,
+        pipeline,
+        X_train,
+        X_test,
+        y_test,
+    )
+
+    return pipeline, robustness_df
+
+
 # ============================================================
 # Main
 # ============================================================
@@ -2146,7 +2305,7 @@ if __name__ == "__main__":
     os.makedirs(IMAGES_DIR, exist_ok=True)
 
     X, y = load_combined_data()
-    dump_dataset_summary(X, y)
+    # dump_dataset_summary(X, y)
 
     #  Здесь название функции train_test_split не совсем правильное
     #  X_cv и y_cv будет использованы для обучения и валидации с помощью кросс валидации.
