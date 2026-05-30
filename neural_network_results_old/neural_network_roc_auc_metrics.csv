@@ -1,2 +1,0 @@
-﻿model,roc_auc,score_source,n_holdout_objects
-Neural Network,0.8943794841390357,predict_proba,5752

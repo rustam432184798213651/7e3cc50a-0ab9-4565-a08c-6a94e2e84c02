@@ -1,2 +1,0 @@
-﻿model,roc_auc,score_source,n_holdout_objects
-XGBoost,0.8976379504450046,predict_proba,5752
